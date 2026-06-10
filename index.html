@@ -471,7 +471,10 @@ function triggerFetch(h) {
 
 async function doFetch(h, ticker) {
   h.status = 'loading';
-  renderCard(h.type);
+  // Only update this row's value cell — never rebuild all rows
+  const cont = document.getElementById(h.type + 'Rows');
+  const rowEl = cont ? cont.querySelector(`.h-row[data-id="${h.id}"]`) : null;
+  if (rowEl) updateRowValue(rowEl, h, h.type);
 
   const result = h.type === 'broker'
     ? await fetchStockPrice(ticker)
@@ -486,44 +489,116 @@ async function doFetch(h, ticker) {
   }
 
   save();
-  renderCard(h.type);
+  if (rowEl) updateRowValue(rowEl, h, h.type);
   recalc();
 }
 
 // ── Row rendering ──────────────────────────────────────────────────────────
-function renderCard(type) {
-  const arr    = type === 'broker' ? brokerHoldings : cryptoHoldings;
+// Creates a single row DOM element (only called once per row)
+function createRowEl(h, type) {
   const accent = type === 'broker' ? '#00D4AA' : '#F7931A';
-  const cont   = document.getElementById(type + 'Rows');
-  cont.innerHTML = '';
+  const ph     = type === 'broker' ? 'AAPL' : 'BTC';
 
-  arr.forEach(h => {
-    const valEUR = h.status==='ok' && h.priceUSD && h.shares
-      ? toEUR(h.priceUSD * parseFloat(h.shares)) : null;
-    const sc = h.status==='ok' ? accent : h.status==='loading' ? '#F7931A' : h.status==='error' ? '#ff4d6d' : '#2a3a52';
+  const div = document.createElement('div');
+  div.className = 'h-row';
+  div.dataset.id = h.id;
 
-    let valHTML = '—';
-    if (h.status==='loading') valHTML = `<span style="animation:pulse 1.2s infinite;display:inline-block">searching…</span>`;
-    else if (h.status==='error') {
-      const msg = type==='broker' && !FINNHUB_KEY ? 'no API key' : 'not found';
-      valHTML = `<span style="cursor:pointer;text-decoration:underline" onclick="retryRow(${h.id},'${type}')">${msg} — retry?</span>`;
+  // Ticker input
+  const tickerIn = document.createElement('input');
+  tickerIn.className = 'h-input ticker';
+  tickerIn.type = 'text';
+  tickerIn.value = h.ticker;
+  tickerIn.placeholder = ph;
+  tickerIn.autocomplete = 'off';
+  tickerIn.setAttribute('autocorrect', 'off');
+  tickerIn.setAttribute('autocapitalize', 'characters');
+  tickerIn.setAttribute('spellcheck', 'false');
+  tickerIn.addEventListener('focus', () => tickerIn.style.borderColor = accent);
+  tickerIn.addEventListener('blur',  () => tickerIn.style.borderColor = '#1a2332');
+  tickerIn.addEventListener('input', () => onTicker(h.id, type, tickerIn.value));
+  tickerIn.addEventListener('keydown', e => { if (e.key === 'Enter') retryRow(h.id, type); });
+
+  // Shares input — text type to allow decimals freely on mobile
+  const sharesIn = document.createElement('input');
+  sharesIn.className = 'h-input shares';
+  sharesIn.type = 'text';
+  sharesIn.inputMode = 'decimal';
+  sharesIn.value = h.shares;
+  sharesIn.placeholder = '0';
+  sharesIn.addEventListener('focus', () => sharesIn.style.borderColor = accent);
+  sharesIn.addEventListener('blur',  () => sharesIn.style.borderColor = '#1a2332');
+  sharesIn.addEventListener('input', () => onShares(h.id, type, sharesIn.value));
+
+  // Value display
+  const valDiv = document.createElement('div');
+  valDiv.className = 'h-value';
+
+  // Remove button
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'h-remove';
+  removeBtn.textContent = '×';
+  removeBtn.addEventListener('click', () => removeRow(h.id, type));
+
+  div.appendChild(tickerIn);
+  div.appendChild(sharesIn);
+  div.appendChild(valDiv);
+  div.appendChild(removeBtn);
+
+  // Set initial value display
+  updateRowValue(div, h, type);
+  return div;
+}
+
+// Updates only the value cell of an existing row — no DOM rebuild
+function updateRowValue(rowEl, h, type) {
+  const accent = type === 'broker' ? '#00D4AA' : '#F7931A';
+  const valDiv = rowEl.querySelector('.h-value');
+  const valEUR = h.status==='ok' && h.priceUSD && h.shares && parseFloat(h.shares) > 0
+    ? toEUR(h.priceUSD * parseFloat(h.shares)) : null;
+  const sc = h.status==='ok' ? accent : h.status==='loading' ? '#F7931A' : h.status==='error' ? '#ff4d6d' : '#2a3a52';
+
+  valDiv.style.color = sc;
+  valDiv.style.borderColor = sc + '22';
+
+  if (h.status === 'loading') {
+    valDiv.innerHTML = '<span style="animation:pulse 1.2s infinite;display:inline-block">searching…</span>';
+  } else if (h.status === 'error') {
+    const msg = type==='broker' && !FINNHUB_KEY ? 'no key' : 'not found';
+    valDiv.innerHTML = `<span style="cursor:pointer;text-decoration:underline" onclick="retryRow(${h.id},'${type}')">${msg} — retry?</span>`;
+  } else if (valEUR !== null) {
+    valDiv.textContent = fmtEUR(valEUR);
+  } else {
+    valDiv.textContent = '—';
+  }
+}
+
+// Smart render: add missing rows, remove deleted rows, update value cells only
+function renderCard(type) {
+  const arr  = type === 'broker' ? brokerHoldings : cryptoHoldings;
+  const cont = document.getElementById(type + 'Rows');
+
+  // Build a map of existing row elements
+  const existing = {};
+  cont.querySelectorAll('.h-row[data-id]').forEach(el => { existing[el.dataset.id] = el; });
+
+  // Remove rows that no longer exist in data
+  Object.keys(existing).forEach(id => {
+    if (!arr.find(h => h.id == id)) existing[id].remove();
+  });
+
+  // Add new rows or update existing ones in order
+  arr.forEach((h, i) => {
+    const existingEl = existing[h.id];
+    if (!existingEl) {
+      // New row — insert at correct position
+      const el = createRowEl(h, type);
+      const rows = cont.querySelectorAll('.h-row');
+      if (i < rows.length) cont.insertBefore(el, rows[i]);
+      else cont.appendChild(el);
+    } else {
+      // Row exists — only update the value display, never touch the inputs
+      updateRowValue(existingEl, h, type);
     }
-    else if (valEUR !== null) valHTML = fmtEUR(valEUR);
-
-    const div = document.createElement('div');
-    div.className = 'h-row';
-    div.innerHTML = `
-      <input class="h-input ticker" type="text" value="${h.ticker}" placeholder="${type==='broker'?'AAPL':'BTC'}"
-        oninput="onTicker(${h.id},'${type}',this.value)"
-        onkeydown="if(event.key==='Enter')retryRow(${h.id},'${type}')"
-        onfocus="this.style.borderColor='${accent}'" onblur="this.style.borderColor='#1a2332'"
-        autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"/>
-      <input class="h-input shares" type="number" min="0" step="any" value="${h.shares}" placeholder="0"
-        oninput="onShares(${h.id},'${type}',this.value)"
-        onfocus="this.style.borderColor='${accent}'" onblur="this.style.borderColor='#1a2332'"/>
-      <div class="h-value" style="color:${sc};border-color:${sc}22">${valHTML}</div>
-      <button class="h-remove" onclick="removeRow(${h.id},'${type}')">×</button>`;
-    cont.appendChild(div);
   });
 }
 
@@ -542,6 +617,10 @@ function onTicker(id, type, val) {
   const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
   if (!h) return;
   h.ticker = val.toUpperCase(); h.status='idle'; h.priceUSD=null; h.name='';
+  // Update value cell to show — without rebuilding the row
+  const cont = document.getElementById(type+'Rows');
+  const rowEl = cont.querySelector(`.h-row[data-id="${id}"]`);
+  if (rowEl) updateRowValue(rowEl, h, type);
   if (h.ticker.length >= 1) triggerFetch(h);
   save();
 }
@@ -549,7 +628,11 @@ function onShares(id, type, val) {
   const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
   if (!h) return;
   h.shares = val;
-  renderCard(type); recalc(); save();
+  // Update only this row's value cell
+  const cont = document.getElementById(type+'Rows');
+  const rowEl = cont.querySelector(`.h-row[data-id="${id}"]`);
+  if (rowEl) updateRowValue(rowEl, h, type);
+  recalc(); save();
 }
 function retryRow(id, type) {
   const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
