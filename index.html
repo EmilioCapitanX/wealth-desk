@@ -15,7 +15,7 @@
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
   input[type=number] { -moz-appearance: textfield; }
-  input { -webkit-appearance: none; }
+  input, select { -webkit-appearance: none; }
 
   @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
   @keyframes pulse  { 0%,100%{opacity:1} 50%{opacity:.3} }
@@ -23,7 +23,7 @@
   .fade  { opacity:0; animation: fadeUp .45s ease forwards; }
   .fade1 { animation-delay:.05s } .fade2 { animation-delay:.12s }
   .fade3 { animation-delay:.19s } .fade4 { animation-delay:.26s }
-  .fade5 { animation-delay:.33s }
+  .fade5 { animation-delay:.33s } .fade6 { animation-delay:.40s }
 
   #app { min-height:100dvh; padding-bottom:env(safe-area-inset-bottom); }
 
@@ -82,17 +82,18 @@
   .col-h { font-size:9px; font-family:'DM Mono',monospace; color:#2a3a52; letter-spacing:1px; }
 
   /* holding rows */
-  .h-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+  .h-row { display:flex; gap:6px; align-items:center; margin-bottom:8px; }
   .h-input {
     background:#080d13; border:1px solid #1a2332; border-radius:7px;
     color:#e2e8f0; font-family:'DM Mono',monospace; font-size:13px;
-    padding:9px 10px; outline:none; transition:border-color .2s; -webkit-appearance:none;
+    padding:9px 8px; outline:none; transition:border-color .2s; -webkit-appearance:none;
   }
-  .h-input.ticker { width:86px; text-transform:uppercase; }
-  .h-input.shares { width:76px; }
+  .h-input.ticker { width:72px; text-transform:uppercase; }
+  .h-input.shares { width:62px; }
+  .h-input.avg    { width:70px; }
   .h-value {
-    flex:1; padding:9px 10px; background:#080d13; border-radius:7px;
-    border:1px solid #0d1a26; font-family:'DM Mono',monospace; font-size:12px;
+    flex:1; padding:9px 8px; background:#080d13; border-radius:7px;
+    border:1px solid #0d1a26; font-family:'DM Mono',monospace; font-size:11px;
     color:#2a3a52; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; min-width:0;
   }
   .h-remove { background:none; border:none; color:#2a3a52; cursor:pointer; font-size:18px; line-height:1; padding:2px 4px; transition:color .2s; }
@@ -108,17 +109,25 @@
   .prog-bg   { height:2px; background:#1a2332; border-radius:1px; margin-top:14px; }
   .prog-fill { height:100%; border-radius:1px; background:var(--accent,#00D4AA); transition:width .5s ease; }
 
-  /* bank */
-  .bank-input-wrap { position:relative; }
-  .bank-sym { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:#4a5568; font-family:'DM Mono',monospace; font-size:13px; pointer-events:none; }
-  .bank-input {
-    width:100%; background:#080d13; border:1px solid #1a2332; border-radius:8px;
-    color:#e2e8f0; font-family:'DM Mono',monospace; font-size:15px;
-    padding:11px 12px 11px 30px; outline:none; transition:border-color .2s; -webkit-appearance:none;
+  /* liquidity rows */
+  .liq-row { display:flex; gap:6px; align-items:center; margin-bottom:8px; }
+  .liq-input {
+    background:#080d13; border:1px solid #1a2332; border-radius:7px;
+    color:#e2e8f0; font-family:'DM Mono',monospace; font-size:13px;
+    padding:9px 8px; outline:none; transition:border-color .2s; -webkit-appearance:none;
   }
-  .bank-sub { display:flex; justify-content:space-between; margin-top:9px; }
-  .bank-eur { font-family:'DM Mono',monospace; font-size:12px; color:#2a3a52; }
-  .bank-eur.active { color:#8899aa; }
+  .liq-input.bank { flex:1; min-width:0; }
+  .liq-input.amount { width:84px; }
+  .liq-select {
+    background:#080d13; border:1px solid #1a2332; border-radius:7px;
+    color:#e2e8f0; font-family:'DM Mono',monospace; font-size:12px;
+    padding:9px 6px; outline:none; transition:border-color .2s; width:74px;
+  }
+  .liq-eur {
+    width:84px; padding:9px 8px; background:#080d13; border-radius:7px;
+    border:1px solid #0d1a26; font-family:'DM Mono',monospace; font-size:11px;
+    color:#2a3a52; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+  }
 
   /* fx bar */
   .fx-bar { background:#0d1117; border:1px solid #1a2332; border-radius:12px; padding:12px 16px; margin-bottom:16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
@@ -128,12 +137,18 @@
   .fx-val   { font-size:10px; color:#6a7a8c; font-family:'DM Mono',monospace; }
   .fx-live  { margin-left:auto; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; }
 
+  /* performance card */
+  .perf-grid { display:flex; gap:10px; flex-wrap:wrap; }
+  .perf-box { flex:1; min-width:120px; background:#080d13; border:1px solid #1a2332; border-radius:10px; padding:12px; }
+  .perf-box-label { font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; }
+  .perf-box-val { font-family:'DM Mono',monospace; font-size:16px; color:#c0cad8; }
+
   /* breakdown */
-  .breakdown { background:#0d1117; border:1px solid #1a2332; border-radius:14px; overflow:hidden; margin-bottom:18px; }
+  .breakdown { background:#0d1117; border:1px solid #1a2332; border-radius:14px; overflow-x:auto; margin-bottom:18px; }
   .breakdown-head { padding:11px 16px; border-bottom:1px solid #0f1923; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; letter-spacing:1.5px; }
-  .breakdown table { width:100%; border-collapse:collapse; }
-  .breakdown th { padding:9px 12px; text-align:left; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; font-weight:400; border-bottom:1px solid #0f1923; }
-  .breakdown td { padding:10px 12px; border-bottom:1px solid #0a1015; }
+  .breakdown table { width:100%; border-collapse:collapse; min-width:560px; }
+  .breakdown th { padding:9px 10px; text-align:left; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; font-weight:400; border-bottom:1px solid #0f1923; white-space:nowrap; }
+  .breakdown td { padding:10px 10px; border-bottom:1px solid #0a1015; white-space:nowrap; }
   .breakdown tr:last-child td { border-bottom:none; }
   .asset-cell { display:flex; align-items:center; gap:7px; }
   .asset-dot  { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
@@ -142,6 +157,8 @@
   .td-mono { font-family:'DM Mono',monospace; font-size:11px; color:#6a7a8c; }
   .td-eur  { font-family:'DM Mono',monospace; font-size:12px; }
   .td-pct  { font-family:'DM Mono',monospace; font-size:11px; color:#3a4a5c; }
+  .gain { color:#00D4AA !important; }
+  .loss { color:#ff4d6d !important; }
 
   .refresh-btn { background:none; border:1px solid #1e2d3d; border-radius:7px; color:#4a5568; cursor:pointer; font-size:11px; padding:5px 10px; font-family:'DM Mono',monospace; transition:all .2s; white-space:nowrap; }
   .refresh-btn:active { border-color:#00D4AA; color:#00D4AA; }
@@ -242,8 +259,9 @@
         <div class="card-total" id="brokerTotal">—</div>
       </div>
       <div class="col-headers">
-        <div class="col-h" style="width:86px">TICKER</div>
-        <div class="col-h" style="width:76px">SHARES</div>
+        <div class="col-h" style="width:72px">TICKER</div>
+        <div class="col-h" style="width:62px">SHARES</div>
+        <div class="col-h" style="width:70px">AVG $</div>
         <div class="col-h" style="flex:1">VALUE (EUR)</div>
       </div>
       <div id="brokerRows"></div>
@@ -262,8 +280,9 @@
         <div class="card-total" id="cryptoTotal">—</div>
       </div>
       <div class="col-headers">
-        <div class="col-h" style="width:86px">COIN</div>
-        <div class="col-h" style="width:76px">AMOUNT</div>
+        <div class="col-h" style="width:72px">COIN</div>
+        <div class="col-h" style="width:62px">AMOUNT</div>
+        <div class="col-h" style="width:70px">AVG $</div>
         <div class="col-h" style="flex:1">VALUE (EUR)</div>
       </div>
       <div id="cryptoRows"></div>
@@ -271,50 +290,26 @@
       <div class="prog-bg"><div class="prog-fill" id="cryptoProg" style="background:#F7931A;width:0%"></div></div>
     </div>
 
-    <!-- Banks -->
-    <div class="section-label fade fade4">Bank Accounts</div>
-
-    <div class="card fade fade4" id="spainCard" style="--accent:#4A9EFF;--accent-border:#4A9EFF44">
+    <!-- Liquidity -->
+    <div class="section-label fade fade4">Liquidity</div>
+    <div class="card fade fade4" id="liquidityCard" style="--accent:#4A9EFF;--accent-border:#4A9EFF44;--accent-dim:#4A9EFF55">
       <div class="card-header">
         <div class="card-title">
-          <span style="font-size:18px">🇪🇸</span>
-          <span class="card-title-text">BBVA España</span>
-          <span class="card-badge" style="color:#4A9EFF;background:#4A9EFF18">EUR</span>
+          <span style="font-size:18px">🏦</span>
+          <span class="card-title-text">Bank Accounts</span>
+          <span class="card-badge" style="color:#4A9EFF;background:#4A9EFF18">CASH</span>
         </div>
-        <div class="card-total" id="spainTotal">—</div>
+        <div class="card-total" id="liquidityTotal">—</div>
       </div>
-      <div class="bank-input-wrap">
-        <span class="bank-sym">€</span>
-        <input class="bank-input" id="spainBal" type="number" min="0" placeholder="0"
-          oninput="onBankChange('spain')"
-          onfocus="this.style.borderColor='#4A9EFF'" onblur="this.style.borderColor='#1a2332'"/>
+      <div class="col-headers">
+        <div class="col-h" style="flex:1">BANK</div>
+        <div class="col-h" style="width:74px">CUR</div>
+        <div class="col-h" style="width:84px">AMOUNT</div>
+        <div class="col-h" style="width:84px">EUR</div>
       </div>
-      <div class="bank-sub">
-        <span class="bank-eur" id="spainSub">—</span>
-      </div>
-      <div class="prog-bg"><div class="prog-fill" id="spainProg" style="background:#4A9EFF;width:0%"></div></div>
-    </div>
-
-    <div class="card fade fade4" id="mexicoCard" style="--accent:#CE1126;--accent-border:#CE112644">
-      <div class="card-header">
-        <div class="card-title">
-          <span style="font-size:18px">🇲🇽</span>
-          <span class="card-title-text">Banco México</span>
-          <span class="card-badge" style="color:#CE1126;background:#CE112618">MXN</span>
-        </div>
-        <div class="card-total" id="mexicoTotal">—</div>
-      </div>
-      <div class="bank-input-wrap">
-        <span class="bank-sym">$</span>
-        <input class="bank-input" id="mexicoBal" type="number" min="0" placeholder="0"
-          oninput="onBankChange('mexico')"
-          onfocus="this.style.borderColor='#CE1126'" onblur="this.style.borderColor='#1a2332'"/>
-      </div>
-      <div class="bank-sub">
-        <span class="bank-eur" id="mexicoSub">—</span>
-        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#CE1126" id="mexicoPct"></span>
-      </div>
-      <div class="prog-bg"><div class="prog-fill" id="mexicoProg" style="background:#CE1126;width:0%"></div></div>
+      <div id="liquidityRows"></div>
+      <button class="add-btn" onclick="addLiquidity()" style="--accent:#4A9EFF;--accent-border:#4A9EFF44">+ add account</button>
+      <div class="prog-bg"><div class="prog-fill" id="liquidityProg" style="background:#4A9EFF;width:0%"></div></div>
     </div>
 
     <!-- FX Bar -->
@@ -322,16 +317,34 @@
       <span class="fx-label">FX</span>
       <div class="fx-pair"><span class="fx-from">USD→EUR</span><span class="fx-val" id="fx1">—</span></div>
       <div class="fx-pair"><span class="fx-from">MXN→EUR</span><span class="fx-val" id="fx2">—</span></div>
-      <div class="fx-pair"><span class="fx-from">EUR→MXN</span><span class="fx-val" id="fx3">—</span></div>
-      <div class="fx-pair"><span class="fx-from">USD→MXN</span><span class="fx-val" id="fx4">—</span></div>
+      <div class="fx-pair"><span class="fx-from">GBP→EUR</span><span class="fx-val" id="fx3">—</span></div>
       <span class="fx-live" id="fxLive">○ loading</span>
     </div>
 
+    <!-- Performance -->
+    <div class="section-label fade fade5" id="perfLabel" style="display:none">Performance vs Avg Buy Price</div>
+    <div class="card fade fade5" id="perfCard" style="display:none">
+      <div class="perf-grid">
+        <div class="perf-box">
+          <div class="perf-box-label">Invested (cost)</div>
+          <div class="perf-box-val" id="perfInvested">—</div>
+        </div>
+        <div class="perf-box">
+          <div class="perf-box-label">Current value</div>
+          <div class="perf-box-val" id="perfCurrent">—</div>
+        </div>
+        <div class="perf-box">
+          <div class="perf-box-label">Profit / Loss</div>
+          <div class="perf-box-val" id="perfPL">—</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Breakdown -->
-    <div class="breakdown fade fade5" id="breakdown" style="display:none">
+    <div class="breakdown fade fade6" id="breakdown" style="display:none">
       <div class="breakdown-head">HOLDINGS DETAIL</div>
       <table>
-        <thead><tr><th>Asset</th><th>Qty</th><th>Price USD</th><th>Value EUR</th><th>%</th></tr></thead>
+        <thead><tr><th>Asset</th><th>Qty</th><th>Price USD</th><th>Avg USD</th><th>Value EUR</th><th>P/L EUR</th><th>P/L %</th><th>%</th></tr></thead>
         <tbody id="breakdownBody"></tbody>
       </table>
     </div>
@@ -342,14 +355,16 @@
 
 <script>
 // ── Config & State ─────────────────────────────────────────────────────────
-const MOCK_RATES = { USD_EUR: 0.922, MXN_EUR: 0.0476 };
-let rates = { ...MOCK_RATES };
+const MOCK_RATES = { USD:0.922, MXN:0.0476, GBP:1.17, EUR:1, CHF:1.06, JPY:0.0061, CAD:0.68, AUD:0.61, CNY:0.13, BRL:0.16, ARS:0.001 };
+let rates = { ...MOCK_RATES };  // value = how many EUR per 1 unit of currency
 let ratesLive = false;
 let FINNHUB_KEY = '';
 
+const CURRENCIES = ['EUR','USD','MXN','GBP','CHF','JPY','CAD','AUD','CNY','BRL','ARS'];
+
 let brokerHoldings = [];
 let cryptoHoldings = [];
-let spainBal = 0, mexicoBal = 0;
+let liquidity = [];
 let idCtr = 1;
 
 // CoinGecko ID map for common tickers
@@ -363,59 +378,71 @@ const COINGECKO_IDS = {
 };
 
 function makeHolding(type) {
-  return { id: idCtr++, ticker:'', shares:'', priceUSD:null, name:'', status:'idle', type };
+  return { id: idCtr++, ticker:'', shares:'', avg:'', priceUSD:null, name:'', status:'idle', type };
+}
+function makeLiquidity() {
+  return { id: idCtr++, bank:'', currency:'EUR', amount:'' };
 }
 
 // ── Persistence ────────────────────────────────────────────────────────────
 function save() {
   try {
-    localStorage.setItem('wd2_broker',  JSON.stringify(brokerHoldings));
-    localStorage.setItem('wd2_crypto',  JSON.stringify(cryptoHoldings));
-    localStorage.setItem('wd2_spain',   spainBal);
-    localStorage.setItem('wd2_mexico',  mexicoBal);
+    localStorage.setItem('wd3_broker',    JSON.stringify(brokerHoldings));
+    localStorage.setItem('wd3_crypto',    JSON.stringify(cryptoHoldings));
+    localStorage.setItem('wd3_liquidity', JSON.stringify(liquidity));
   } catch(e) {}
 }
 function load() {
   try {
-    const b = localStorage.getItem('wd2_broker');
-    const c = localStorage.getItem('wd2_crypto');
-    if (b) brokerHoldings = JSON.parse(b).map(h=>({...h,status:'idle',priceUSD:null}));
-    if (c) cryptoHoldings = JSON.parse(c).map(h=>({...h,status:'idle',priceUSD:null}));
-    spainBal  = parseFloat(localStorage.getItem('wd2_spain')  || 0) || 0;
-    mexicoBal = parseFloat(localStorage.getItem('wd2_mexico') || 0) || 0;
-    if (spainBal)  document.getElementById('spainBal').value  = spainBal;
-    if (mexicoBal) document.getElementById('mexicoBal').value = mexicoBal;
+    const b = localStorage.getItem('wd3_broker');
+    const c = localStorage.getItem('wd3_crypto');
+    const l = localStorage.getItem('wd3_liquidity');
+    if (b) brokerHoldings = JSON.parse(b).map(h=>({avg:'',...h,status:'idle',priceUSD:null}));
+    if (c) cryptoHoldings = JSON.parse(c).map(h=>({avg:'',...h,status:'idle',priceUSD:null}));
+    if (l) liquidity = JSON.parse(l);
+
+    // Migrate old fixed banks if present
+    const oldSpain  = parseFloat(localStorage.getItem('wd2_spain')  || 0) || 0;
+    const oldMexico = parseFloat(localStorage.getItem('wd2_mexico') || 0) || 0;
+    if (!l && (oldSpain || oldMexico)) {
+      if (oldSpain)  liquidity.push({id:idCtr++, bank:'BBVA España', currency:'EUR', amount:oldSpain});
+      if (oldMexico) liquidity.push({id:idCtr++, bank:'Banco México', currency:'MXN', amount:oldMexico});
+    }
   } catch(e) {}
 }
 
 // ── Formatting ─────────────────────────────────────────────────────────────
 const fmtEUR = n => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
-const toEUR  = usd => usd * (rates.USD_EUR || MOCK_RATES.USD_EUR);
-const mxn2EUR= mxn => mxn * (rates.MXN_EUR || MOCK_RATES.MXN_EUR);
+const toEUR  = usd => usd * (rates.USD || MOCK_RATES.USD);  // USD → EUR
+const cur2EUR= (amt, cur) => amt * (rates[cur] != null ? rates[cur] : (MOCK_RATES[cur] || 1));
 
 // ── FX: Frankfurter (ECB, free, no key) ───────────────────────────────────
 async function fetchRates() {
   setStatus('fetching rates…', true);
   try {
-    // Frankfurter gives EUR base, so we get USD and MXN per 1 EUR
-    const res = await fetch('https://api.frankfurter.app/latest?from=EUR&to=USD,MXN');
+    // Need every currency we support except EUR itself
+    const want = CURRENCIES.filter(c => c !== 'EUR');
+    const res = await fetch('https://api.frankfurter.app/latest?from=EUR&to=' + want.join(','));
     const data = await res.json();
-    if (data.rates && data.rates.USD && data.rates.MXN) {
-      rates.USD_EUR = 1 / data.rates.USD;   // USD→EUR
-      rates.MXN_EUR = 1 / data.rates.MXN;   // MXN→EUR
+    if (data.rates) {
+      rates = { EUR:1 };
+      // Frankfurter returns "units of X per 1 EUR"; we want EUR per 1 X = 1/rate
+      Object.keys(data.rates).forEach(cur => {
+        if (data.rates[cur] > 0) rates[cur] = 1 / data.rates[cur];
+      });
+      // Fill any missing with mock
+      CURRENCIES.forEach(c => { if (rates[c] == null) rates[c] = MOCK_RATES[c] || 1; });
       ratesLive = true;
     }
-  } catch(e) { console.warn('FX fetch failed, using estimates'); }
+  } catch(e) { console.warn('FX fetch failed, using estimates'); rates = {...MOCK_RATES}; }
   updateFXBar();
   setStatus(ratesLive ? '● live' : '○ est', false);
 }
 
 function updateFXBar() {
-  const r = rates;
-  document.getElementById('fx1').textContent = r.USD_EUR.toFixed(4);
-  document.getElementById('fx2').textContent = r.MXN_EUR.toFixed(5);
-  document.getElementById('fx3').textContent = (1/r.MXN_EUR).toFixed(2);
-  document.getElementById('fx4').textContent = (r.USD_EUR/r.MXN_EUR).toFixed(2);
+  document.getElementById('fx1').textContent = (rates.USD||0).toFixed(4);
+  document.getElementById('fx2').textContent = (rates.MXN||0).toFixed(5);
+  document.getElementById('fx3').textContent = (rates.GBP||0).toFixed(4);
   document.getElementById('fxLive').textContent = ratesLive ? '● ECB live' : '○ estimated';
 }
 
@@ -431,7 +458,6 @@ async function fetchStockPrice(ticker) {
   try {
     const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${FINNHUB_KEY}`);
     const data = await res.json();
-    // 'c' = current price
     if (data.c && data.c > 0) return { priceUSD: data.c, name: ticker };
     return null;
   } catch(e) { return null; }
@@ -447,7 +473,6 @@ async function fetchCryptoPrice(ticker) {
     if (data[cgId] && data[cgId].usd) {
       return { priceUSD: data[cgId].usd, name: cgId };
     }
-    // Fallback: try search
     const s = await fetch(`https://api.coingecko.com/api/v3/search?query=${ticker}`);
     const sd = await s.json();
     const coin = sd.coins && sd.coins[0];
@@ -471,7 +496,6 @@ function triggerFetch(h) {
 
 async function doFetch(h, ticker) {
   h.status = 'loading';
-  // Only update this row's value cell — never rebuild all rows
   const cont = document.getElementById(h.type + 'Rows');
   const rowEl = cont ? cont.querySelector(`.h-row[data-id="${h.id}"]`) : null;
   if (rowEl) updateRowValue(rowEl, h, h.type);
@@ -493,8 +517,7 @@ async function doFetch(h, ticker) {
   recalc();
 }
 
-// ── Row rendering ──────────────────────────────────────────────────────────
-// Creates a single row DOM element (only called once per row)
+// ── Holding row rendering ──────────────────────────────────────────────────
 function createRowEl(h, type) {
   const accent = type === 'broker' ? '#00D4AA' : '#F7931A';
   const ph     = type === 'broker' ? 'AAPL' : 'BTC';
@@ -503,7 +526,7 @@ function createRowEl(h, type) {
   div.className = 'h-row';
   div.dataset.id = h.id;
 
-  // Ticker input
+  // Ticker
   const tickerIn = document.createElement('input');
   tickerIn.className = 'h-input ticker';
   tickerIn.type = 'text';
@@ -518,7 +541,7 @@ function createRowEl(h, type) {
   tickerIn.addEventListener('input', () => onTicker(h.id, type, tickerIn.value));
   tickerIn.addEventListener('keydown', e => { if (e.key === 'Enter') retryRow(h.id, type); });
 
-  // Shares input — text type to allow decimals freely on mobile
+  // Shares
   const sharesIn = document.createElement('input');
   sharesIn.className = 'h-input shares';
   sharesIn.type = 'text';
@@ -529,11 +552,22 @@ function createRowEl(h, type) {
   sharesIn.addEventListener('blur',  () => sharesIn.style.borderColor = '#1a2332');
   sharesIn.addEventListener('input', () => onShares(h.id, type, sharesIn.value));
 
+  // Avg buy price (USD)
+  const avgIn = document.createElement('input');
+  avgIn.className = 'h-input avg';
+  avgIn.type = 'text';
+  avgIn.inputMode = 'decimal';
+  avgIn.value = h.avg;
+  avgIn.placeholder = 'avg $';
+  avgIn.addEventListener('focus', () => avgIn.style.borderColor = accent);
+  avgIn.addEventListener('blur',  () => avgIn.style.borderColor = '#1a2332');
+  avgIn.addEventListener('input', () => onAvg(h.id, type, avgIn.value));
+
   // Value display
   const valDiv = document.createElement('div');
   valDiv.className = 'h-value';
 
-  // Remove button
+  // Remove
   const removeBtn = document.createElement('button');
   removeBtn.className = 'h-remove';
   removeBtn.textContent = '×';
@@ -541,15 +575,14 @@ function createRowEl(h, type) {
 
   div.appendChild(tickerIn);
   div.appendChild(sharesIn);
+  div.appendChild(avgIn);
   div.appendChild(valDiv);
   div.appendChild(removeBtn);
 
-  // Set initial value display
   updateRowValue(div, h, type);
   return div;
 }
 
-// Updates only the value cell of an existing row — no DOM rebuild
 function updateRowValue(rowEl, h, type) {
   const accent = type === 'broker' ? '#00D4AA' : '#F7931A';
   const valDiv = rowEl.querySelector('.h-value');
@@ -572,31 +605,25 @@ function updateRowValue(rowEl, h, type) {
   }
 }
 
-// Smart render: add missing rows, remove deleted rows, update value cells only
 function renderCard(type) {
   const arr  = type === 'broker' ? brokerHoldings : cryptoHoldings;
   const cont = document.getElementById(type + 'Rows');
 
-  // Build a map of existing row elements
   const existing = {};
   cont.querySelectorAll('.h-row[data-id]').forEach(el => { existing[el.dataset.id] = el; });
 
-  // Remove rows that no longer exist in data
   Object.keys(existing).forEach(id => {
     if (!arr.find(h => h.id == id)) existing[id].remove();
   });
 
-  // Add new rows or update existing ones in order
   arr.forEach((h, i) => {
     const existingEl = existing[h.id];
     if (!existingEl) {
-      // New row — insert at correct position
       const el = createRowEl(h, type);
       const rows = cont.querySelectorAll('.h-row');
       if (i < rows.length) cont.insertBefore(el, rows[i]);
       else cont.appendChild(el);
     } else {
-      // Row exists — only update the value display, never touch the inputs
       updateRowValue(existingEl, h, type);
     }
   });
@@ -617,9 +644,7 @@ function onTicker(id, type, val) {
   const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
   if (!h) return;
   h.ticker = val.toUpperCase(); h.status='idle'; h.priceUSD=null; h.name='';
-  // Update value cell to show — without rebuilding the row
-  const cont = document.getElementById(type+'Rows');
-  const rowEl = cont.querySelector(`.h-row[data-id="${id}"]`);
+  const rowEl = document.getElementById(type+'Rows').querySelector(`.h-row[data-id="${id}"]`);
   if (rowEl) updateRowValue(rowEl, h, type);
   if (h.ticker.length >= 1) triggerFetch(h);
   save();
@@ -628,10 +653,14 @@ function onShares(id, type, val) {
   const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
   if (!h) return;
   h.shares = val;
-  // Update only this row's value cell
-  const cont = document.getElementById(type+'Rows');
-  const rowEl = cont.querySelector(`.h-row[data-id="${id}"]`);
+  const rowEl = document.getElementById(type+'Rows').querySelector(`.h-row[data-id="${id}"]`);
   if (rowEl) updateRowValue(rowEl, h, type);
+  recalc(); save();
+}
+function onAvg(id, type, val) {
+  const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
+  if (!h) return;
+  h.avg = val;
   recalc(); save();
 }
 function retryRow(id, type) {
@@ -640,9 +669,115 @@ function retryRow(id, type) {
   h.status='idle'; h.priceUSD=null;
   triggerFetch(h);
 }
-function onBankChange(which) {
-  if (which==='spain')  spainBal  = parseFloat(document.getElementById('spainBal').value)||0;
-  else                  mexicoBal = parseFloat(document.getElementById('mexicoBal').value)||0;
+
+// ── Liquidity rows ─────────────────────────────────────────────────────────
+function createLiqEl(l) {
+  const accent = '#4A9EFF';
+  const div = document.createElement('div');
+  div.className = 'liq-row';
+  div.dataset.id = l.id;
+
+  const bankIn = document.createElement('input');
+  bankIn.className = 'liq-input bank';
+  bankIn.type = 'text';
+  bankIn.value = l.bank;
+  bankIn.placeholder = 'Bank name';
+  bankIn.autocomplete = 'off';
+  bankIn.addEventListener('focus', () => bankIn.style.borderColor = accent);
+  bankIn.addEventListener('blur',  () => bankIn.style.borderColor = '#1a2332');
+  bankIn.addEventListener('input', () => onLiqChange(l.id, 'bank', bankIn.value));
+
+  const curSel = document.createElement('select');
+  curSel.className = 'liq-select';
+  CURRENCIES.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    if (c === l.currency) o.selected = true;
+    curSel.appendChild(o);
+  });
+  curSel.addEventListener('focus', () => curSel.style.borderColor = accent);
+  curSel.addEventListener('blur',  () => curSel.style.borderColor = '#1a2332');
+  curSel.addEventListener('change', () => onLiqChange(l.id, 'currency', curSel.value));
+
+  const amtIn = document.createElement('input');
+  amtIn.className = 'liq-input amount';
+  amtIn.type = 'text';
+  amtIn.inputMode = 'decimal';
+  amtIn.value = l.amount;
+  amtIn.placeholder = '0';
+  amtIn.addEventListener('focus', () => amtIn.style.borderColor = accent);
+  amtIn.addEventListener('blur',  () => amtIn.style.borderColor = '#1a2332');
+  amtIn.addEventListener('input', () => onLiqChange(l.id, 'amount', amtIn.value));
+
+  const eurDiv = document.createElement('div');
+  eurDiv.className = 'liq-eur';
+
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'h-remove';
+  removeBtn.textContent = '×';
+  removeBtn.addEventListener('click', () => removeLiquidity(l.id));
+
+  div.appendChild(bankIn);
+  div.appendChild(curSel);
+  div.appendChild(amtIn);
+  div.appendChild(eurDiv);
+  div.appendChild(removeBtn);
+
+  updateLiqEUR(div, l);
+  return div;
+}
+
+function updateLiqEUR(rowEl, l) {
+  const eurDiv = rowEl.querySelector('.liq-eur');
+  const amt = parseFloat(l.amount);
+  if (amt > 0) {
+    const eur = cur2EUR(amt, l.currency);
+    eurDiv.textContent = fmtEUR(eur);
+    eurDiv.style.color = '#8899aa';
+    eurDiv.style.borderColor = '#4A9EFF22';
+  } else {
+    eurDiv.textContent = '—';
+    eurDiv.style.color = '#2a3a52';
+    eurDiv.style.borderColor = '#0d1a26';
+  }
+}
+
+function renderLiquidity() {
+  const cont = document.getElementById('liquidityRows');
+  const existing = {};
+  cont.querySelectorAll('.liq-row[data-id]').forEach(el => { existing[el.dataset.id] = el; });
+
+  Object.keys(existing).forEach(id => {
+    if (!liquidity.find(l => l.id == id)) existing[id].remove();
+  });
+
+  liquidity.forEach((l, i) => {
+    const existingEl = existing[l.id];
+    if (!existingEl) {
+      const el = createLiqEl(l);
+      const rows = cont.querySelectorAll('.liq-row');
+      if (i < rows.length) cont.insertBefore(el, rows[i]);
+      else cont.appendChild(el);
+    } else {
+      updateLiqEUR(existingEl, l);
+    }
+  });
+}
+
+function addLiquidity() {
+  liquidity.push(makeLiquidity());
+  renderLiquidity(); save();
+}
+function removeLiquidity(id) {
+  liquidity = liquidity.filter(l => l.id !== id);
+  renderLiquidity(); recalc(); save();
+}
+function onLiqChange(id, field, val) {
+  const l = liquidity.find(x => x.id === id);
+  if (!l) return;
+  l[field] = val;
+  const rowEl = document.getElementById('liquidityRows').querySelector(`.liq-row[data-id="${id}"]`);
+  if (rowEl) updateLiqEUR(rowEl, l);
   recalc(); save();
 }
 
@@ -650,29 +785,33 @@ function onBankChange(which) {
 function holdingsEUR(arr) {
   return arr.reduce((s,h) => h.status==='ok'&&h.priceUSD&&h.shares ? s+toEUR(h.priceUSD*parseFloat(h.shares)) : s, 0);
 }
+function liquidityEUR() {
+  return liquidity.reduce((s,l) => {
+    const amt = parseFloat(l.amount);
+    return amt > 0 ? s + cur2EUR(amt, l.currency) : s;
+  }, 0);
+}
 
 function recalc() {
   const bEUR = holdingsEUR(brokerHoldings);
   const cEUR = holdingsEUR(cryptoHoldings);
-  const sEUR = spainBal;
-  const mEUR = mxn2EUR(mexicoBal);
-  const total= bEUR+cEUR+sEUR+mEUR;
+  const lEUR = liquidityEUR();
+  const total= bEUR+cEUR+lEUR;
 
   // Hero
   const hv = document.getElementById('heroValue');
   hv.textContent = total>0 ? fmtEUR(total) : '— —';
   hv.classList.toggle('active', total>0);
   const hs = document.getElementById('heroSub');
-  const n = [bEUR,cEUR,sEUR,mEUR].filter(v=>v>0).length;
+  const n = [bEUR,cEUR,lEUR].filter(v=>v>0).length;
   hs.style.display = total>0 ? '' : 'none';
   hs.textContent = n + ' active source' + (n!==1?'s':'');
 
   // Per-source
   const sources = [
-    {id:'broker', eur:bEUR, color:'#00D4AA'},
-    {id:'crypto', eur:cEUR, color:'#F7931A'},
-    {id:'spain',  eur:sEUR, color:'#4A9EFF'},
-    {id:'mexico', eur:mEUR, color:'#CE1126'},
+    {id:'broker',    eur:bEUR, color:'#00D4AA'},
+    {id:'crypto',    eur:cEUR, color:'#F7931A'},
+    {id:'liquidity', eur:lEUR, color:'#4A9EFF'},
   ];
   sources.forEach(s => {
     const t = document.getElementById(s.id+'Total');
@@ -683,17 +822,31 @@ function recalc() {
     if (c) c.classList.toggle('active',s.eur>0);
   });
 
-  // Bank subs
-  const ss = document.getElementById('spainSub');
-  ss.textContent = sEUR>0 ? fmtEUR(sEUR) : '—';
-  ss.classList.toggle('active', sEUR>0);
-  const ms = document.getElementById('mexicoSub');
-  ms.textContent = mEUR>0 ? '≈ '+fmtEUR(mEUR) : '—';
-  ms.classList.toggle('active', mEUR>0);
-  document.getElementById('mexicoPct').textContent = total>0&&mEUR>0 ? ((mEUR/total)*100).toFixed(1)+'%' : '';
-
   // Donut + legend
   renderDonut(sources, total);
+
+  // Performance summary (only assets with avg price)
+  let invested = 0, currentVal = 0;
+  const withAvg = [...brokerHoldings, ...cryptoHoldings].filter(h =>
+    h.status==='ok' && h.priceUSD && parseFloat(h.shares)>0 && parseFloat(h.avg)>0);
+  withAvg.forEach(h => {
+    const qty = parseFloat(h.shares);
+    invested   += toEUR(parseFloat(h.avg) * qty);
+    currentVal += toEUR(h.priceUSD * qty);
+  });
+  const showPerf = withAvg.length > 0;
+  document.getElementById('perfLabel').style.display = showPerf ? '' : 'none';
+  document.getElementById('perfCard').style.display  = showPerf ? '' : 'none';
+  if (showPerf) {
+    const pl = currentVal - invested;
+    const plPct = invested > 0 ? (pl/invested)*100 : 0;
+    document.getElementById('perfInvested').textContent = fmtEUR(invested);
+    document.getElementById('perfCurrent').textContent  = fmtEUR(currentVal);
+    const plEl = document.getElementById('perfPL');
+    const sign = pl >= 0 ? '+' : '';
+    plEl.textContent = sign + fmtEUR(pl) + '  (' + sign + plPct.toFixed(1) + '%)';
+    plEl.className = 'perf-box-val ' + (pl >= 0 ? 'gain' : 'loss');
+  }
 
   // Breakdown
   const allH = [
@@ -705,7 +858,20 @@ function recalc() {
   const tb = document.getElementById('breakdownBody');
   tb.innerHTML = '';
   allH.forEach(h => {
-    const v = toEUR(h.priceUSD*parseFloat(h.shares));
+    const qty = parseFloat(h.shares);
+    const v   = toEUR(h.priceUSD*qty);
+    const avg = parseFloat(h.avg);
+    let plCellEur = '<span class="td-pct">—</span>';
+    let plCellPct = '<span class="td-pct">—</span>';
+    if (avg > 0) {
+      const cost = toEUR(avg*qty);
+      const pl   = v - cost;
+      const plPct= cost>0 ? (pl/cost)*100 : 0;
+      const cls  = pl >= 0 ? 'gain' : 'loss';
+      const sign = pl >= 0 ? '+' : '';
+      plCellEur = `<span class="td-eur ${cls}">${sign}${fmtEUR(pl)}</span>`;
+      plCellPct = `<span class="td-mono ${cls}">${sign}${plPct.toFixed(1)}%</span>`;
+    }
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><div class="asset-cell">
@@ -713,9 +879,12 @@ function recalc() {
         <span class="asset-name">${h.ticker}</span>
         ${h.name&&h.name!==h.ticker?`<span class="asset-fname">${h.name.slice(0,12)}</span>`:''}
       </div></td>
-      <td class="td-mono">${parseFloat(h.shares).toLocaleString('es-ES',{maximumFractionDigits:6})}</td>
+      <td class="td-mono">${qty.toLocaleString('es-ES',{maximumFractionDigits:6})}</td>
       <td class="td-mono">$${h.priceUSD.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+      <td class="td-mono">${avg>0?'$'+avg.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—'}</td>
       <td class="td-eur" style="color:${h.color}">${fmtEUR(v)}</td>
+      <td>${plCellEur}</td>
+      <td>${plCellPct}</td>
       <td class="td-pct">${total>0?((v/total)*100).toFixed(1):0}%</td>`;
     tb.appendChild(tr);
   });
@@ -734,11 +903,13 @@ function renderDonut(sources, total) {
     t.setAttribute('dy','0.35em');t.setAttribute('fill','#3a4a5c');t.setAttribute('font-size','11');
     t.setAttribute('font-family','DM Mono,monospace');
     t.style.transform='rotate(90deg)';t.style.transformOrigin='80px 80px';
-    t.textContent='no data';svg.appendChild(t); return;
+    t.textContent='no data';svg.appendChild(t);
+    document.getElementById('legend').innerHTML='';
+    return;
   }
   const leg = document.getElementById('legend');
   leg.innerHTML='';
-  const labels={broker:'Broker',crypto:'Crypto',spain:'BBVA ES',mexico:'Banco MX'};
+  const labels={broker:'Broker',crypto:'Crypto',liquidity:'Liquidity'};
   let off=0;
   sources.filter(s=>s.eur>0).forEach(s=>{
     const d=(s.eur/total)*circ;
@@ -761,24 +932,25 @@ function openApp() {
   load();
   if (!brokerHoldings.length) brokerHoldings.push(makeHolding('broker'));
   if (!cryptoHoldings.length) cryptoHoldings.push(makeHolding('crypto'));
-  renderCard('broker'); renderCard('crypto');
+  if (!liquidity.length) liquidity.push(makeLiquidity());
+  renderCard('broker'); renderCard('crypto'); renderLiquidity();
   recalc();
   fetchRates().then(() => {
+    renderLiquidity();
     recalc();
-    // Refresh all saved tickers
     [...brokerHoldings,...cryptoHoldings].filter(h=>h.ticker).forEach(h=>{ h.status='idle'; triggerFetch(h); });
   });
 }
 
 function refreshAll() {
   fetchRates().then(() => {
+    renderLiquidity();
     recalc();
     [...brokerHoldings,...cryptoHoldings].filter(h=>h.ticker).forEach(h=>{ h.status='idle'; triggerFetch(h); });
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Check saved key
   const saved = localStorage.getItem('wd2_finnhub');
   if (saved) { FINNHUB_KEY=saved; openApp(); return; }
 
