@@ -15,58 +15,50 @@
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
   input[type=number] { -moz-appearance: textfield; }
-  input { -webkit-appearance: none; border-radius: 0; }
+  input { -webkit-appearance: none; }
 
   @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
   @keyframes pulse  { 0%,100%{opacity:1} 50%{opacity:.3} }
-  @keyframes spin   { to { transform: rotate(360deg); } }
 
-  .fade { opacity:0; animation: fadeUp .45s ease forwards; }
-  .fade1 { animation-delay:.05s }
-  .fade2 { animation-delay:.12s }
-  .fade3 { animation-delay:.19s }
-  .fade4 { animation-delay:.26s }
+  .fade  { opacity:0; animation: fadeUp .45s ease forwards; }
+  .fade1 { animation-delay:.05s } .fade2 { animation-delay:.12s }
+  .fade3 { animation-delay:.19s } .fade4 { animation-delay:.26s }
   .fade5 { animation-delay:.33s }
 
-  /* ── layout ── */
-  #app { min-height: 100dvh; padding-bottom: env(safe-area-inset-bottom); }
+  #app { min-height:100dvh; padding-bottom:env(safe-area-inset-bottom); }
 
+  /* header */
   header {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(6,10,15,.92);
-    backdrop-filter: saturate(180%) blur(12px);
-    -webkit-backdrop-filter: saturate(180%) blur(12px);
-    border-bottom: 1px solid #0f1923;
-    padding: 14px 20px;
-    display: flex; justify-content: space-between; align-items: center;
+    position:sticky; top:0; z-index:10;
+    background:rgba(6,10,15,.92);
+    backdrop-filter:saturate(180%) blur(12px);
+    -webkit-backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid #0f1923;
+    padding:14px 20px;
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
   }
   .logo { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; letter-spacing:-.5px; }
   .logo span { color:#00D4AA; }
   .logo-sub { color:#2a3a52; font-size:9px; font-family:'DM Mono',monospace; margin-top:1px; }
+  .header-right { display:flex; align-items:center; gap:8px; flex-shrink:0; }
 
-  .main { padding: 18px 16px; max-width: 640px; margin: 0 auto; }
+  .main { padding:18px 16px; max-width:640px; margin:0 auto; }
 
-  /* ── hero card ── */
+  /* hero */
   .hero {
-    background: linear-gradient(135deg,#0d1117,#091520);
-    border: 1px solid #1a2332;
-    border-radius: 20px;
-    padding: 22px 20px;
-    margin-bottom: 18px;
-    position: relative; overflow: hidden;
+    background:linear-gradient(135deg,#0d1117,#091520);
+    border:1px solid #1a2332; border-radius:20px;
+    padding:22px 20px; margin-bottom:18px;
+    position:relative; overflow:hidden;
   }
-  .hero-glow {
-    position:absolute; top:0; right:0; width:220px; height:220px;
-    background: radial-gradient(circle,#00D4AA08,transparent 70%);
-    pointer-events:none;
-  }
+  .hero-glow { position:absolute; top:0; right:0; width:220px; height:220px; background:radial-gradient(circle,#00D4AA08,transparent 70%); pointer-events:none; }
   .hero-label { color:#2a3a52; font-size:9px; font-family:'DM Mono',monospace; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:8px; }
-  .hero-value { font-family:'Syne',sans-serif; font-size:40px; font-weight:800; color:#1e2d3d; letter-spacing:-2px; line-height:1; transition: color .4s, font-size .3s; }
+  .hero-value { font-family:'Syne',sans-serif; font-size:40px; font-weight:800; color:#1e2d3d; letter-spacing:-2px; line-height:1; transition:color .4s,font-size .3s; }
   .hero-value.active { color:#00D4AA; font-size:44px; }
   .hero-sub { color:#4a5568; font-size:11px; font-family:'DM Mono',monospace; margin-top:6px; }
   .hero-body { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
 
-  /* ── donut ── */
+  /* donut */
   .donut-wrap { display:flex; align-items:center; gap:14px; flex-shrink:0; }
   .legend { display:flex; flex-direction:column; gap:7px; }
   .legend-row { display:flex; align-items:center; gap:7px; }
@@ -74,127 +66,103 @@
   .legend-label { font-size:10px; color:#5a6a7c; font-family:'DM Mono',monospace; }
   .legend-pct   { font-size:10px; color:#c0cad8; font-family:'DM Mono',monospace; }
 
-  /* ── section label ── */
   .section-label { font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
 
-  /* ── cards ── */
-  .card {
-    background:#0d1117; border:1px solid #1a2332; border-radius:14px;
-    padding:18px; margin-bottom:12px; transition: border-color .25s;
-  }
-  .card.active { border-color: var(--accent,#00D4AA44); }
+  /* cards */
+  .card { background:#0d1117; border:1px solid #1a2332; border-radius:14px; padding:18px; margin-bottom:12px; transition:border-color .25s; }
+  .card.active { border-color:var(--accent-border,#00D4AA44); }
   .card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
-  .card-title { display:flex; align-items:center; gap:8px; }
+  .card-title  { display:flex; align-items:center; gap:8px; }
   .card-title-text { font-size:13px; font-weight:600; color:#c0cad8; }
-  .card-badge { font-size:9px; font-family:'DM Mono',monospace; padding:2px 7px; border-radius:4px; }
-  .card-total { font-family:'DM Mono',monospace; font-size:14px; color:#2a3a52; transition:color .3s; }
-  .card-total.active { color: var(--accent,#00D4AA); }
+  .card-badge  { font-size:9px; font-family:'DM Mono',monospace; padding:2px 7px; border-radius:4px; }
+  .card-total  { font-family:'DM Mono',monospace; font-size:14px; color:#2a3a52; transition:color .3s; }
+  .card-total.active { color:var(--accent,#00D4AA); }
 
-  /* ── col headers ── */
   .col-headers { display:flex; gap:8px; margin-bottom:6px; }
   .col-h { font-size:9px; font-family:'DM Mono',monospace; color:#2a3a52; letter-spacing:1px; }
 
-  /* ── holding row ── */
+  /* holding rows */
   .h-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
   .h-input {
     background:#080d13; border:1px solid #1a2332; border-radius:7px;
     color:#e2e8f0; font-family:'DM Mono',monospace; font-size:13px;
-    padding:9px 10px; outline:none; transition:border-color .2s;
-    -webkit-appearance:none;
+    padding:9px 10px; outline:none; transition:border-color .2s; -webkit-appearance:none;
   }
-  .h-input:focus { border-color: var(--accent,#00D4AA); }
   .h-input.ticker { width:86px; text-transform:uppercase; }
   .h-input.shares { width:76px; }
   .h-value {
     flex:1; padding:9px 10px; background:#080d13; border-radius:7px;
-    border:1px solid #1a233233; font-family:'DM Mono',monospace; font-size:12px;
-    color:#2a3a52; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
-    min-width:0;
+    border:1px solid #0d1a26; font-family:'DM Mono',monospace; font-size:12px;
+    color:#2a3a52; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; min-width:0;
   }
-  .h-remove {
-    background:none; border:none; color:#2a3a52; cursor:pointer;
-    font-size:18px; line-height:1; padding:2px 4px; transition:color .2s;
-  }
-  .h-remove:hover { color:#ff4d6d; }
+  .h-remove { background:none; border:none; color:#2a3a52; cursor:pointer; font-size:18px; line-height:1; padding:2px 4px; transition:color .2s; }
+  .h-remove:active { color:#ff4d6d; }
 
-  /* ── add button ── */
   .add-btn {
-    background:none; border:1px dashed var(--accent,#00D4AA44); border-radius:7px;
+    background:none; border:1px dashed var(--accent-border,#00D4AA44); border-radius:7px;
     color:var(--accent-dim,#00D4AA66); cursor:pointer; font-size:12px;
-    font-family:'DM Mono',monospace; padding:8px; width:100%; margin-top:4px;
-    transition:all .2s;
+    font-family:'DM Mono',monospace; padding:8px; width:100%; margin-top:4px; transition:all .2s;
   }
-  .add-btn:hover { border-color:var(--accent,#00D4AA); color:var(--accent,#00D4AA); }
+  .add-btn:active { border-color:var(--accent,#00D4AA); color:var(--accent,#00D4AA); }
 
-  /* ── progress bar ── */
-  .prog-bg { height:2px; background:#1a2332; border-radius:1px; margin-top:14px; }
+  .prog-bg   { height:2px; background:#1a2332; border-radius:1px; margin-top:14px; }
   .prog-fill { height:100%; border-radius:1px; background:var(--accent,#00D4AA); transition:width .5s ease; }
 
-  /* ── bank input ── */
+  /* bank */
   .bank-input-wrap { position:relative; }
   .bank-sym { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:#4a5568; font-family:'DM Mono',monospace; font-size:13px; pointer-events:none; }
   .bank-input {
     width:100%; background:#080d13; border:1px solid #1a2332; border-radius:8px;
     color:#e2e8f0; font-family:'DM Mono',monospace; font-size:15px;
-    padding:11px 12px 11px 30px; outline:none; transition:border-color .2s;
-    -webkit-appearance:none;
+    padding:11px 12px 11px 30px; outline:none; transition:border-color .2s; -webkit-appearance:none;
   }
-  .bank-input:focus { border-color:var(--accent,#00D4AA); }
   .bank-sub { display:flex; justify-content:space-between; margin-top:9px; }
   .bank-eur { font-family:'DM Mono',monospace; font-size:12px; color:#2a3a52; }
   .bank-eur.active { color:#8899aa; }
-  .bank-pct { font-family:'DM Mono',monospace; font-size:11px; color:var(--accent,#00D4AA); }
 
-  /* ── FX bar ── */
-  .fx-bar {
-    background:#0d1117; border:1px solid #1a2332; border-radius:12px;
-    padding:12px 16px; margin-bottom:16px;
-    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
-  }
+  /* fx bar */
+  .fx-bar { background:#0d1117; border:1px solid #1a2332; border-radius:12px; padding:12px 16px; margin-bottom:16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
   .fx-label { font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; letter-spacing:1.5px; }
-  .fx-pair { display:flex; gap:5px; align-items:baseline; }
-  .fx-from { font-size:9px; color:#3a4a5c; font-family:'DM Mono',monospace; }
-  .fx-val  { font-size:10px; color:#6a7a8c; font-family:'DM Mono',monospace; }
-  .fx-live { margin-left:auto; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; }
+  .fx-pair  { display:flex; gap:5px; align-items:baseline; }
+  .fx-from  { font-size:9px; color:#3a4a5c; font-family:'DM Mono',monospace; }
+  .fx-val   { font-size:10px; color:#6a7a8c; font-family:'DM Mono',monospace; }
+  .fx-live  { margin-left:auto; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; }
 
-  /* ── breakdown table ── */
+  /* breakdown */
   .breakdown { background:#0d1117; border:1px solid #1a2332; border-radius:14px; overflow:hidden; margin-bottom:18px; }
   .breakdown-head { padding:11px 16px; border-bottom:1px solid #0f1923; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; letter-spacing:1.5px; }
   .breakdown table { width:100%; border-collapse:collapse; }
-  .breakdown th { padding:9px 14px; text-align:left; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; font-weight:400; border-bottom:1px solid #0f1923; }
-  .breakdown td { padding:10px 14px; border-bottom:1px solid #0a1015; }
+  .breakdown th { padding:9px 12px; text-align:left; font-size:9px; color:#2a3a52; font-family:'DM Mono',monospace; font-weight:400; border-bottom:1px solid #0f1923; }
+  .breakdown td { padding:10px 12px; border-bottom:1px solid #0a1015; }
   .breakdown tr:last-child td { border-bottom:none; }
   .asset-cell { display:flex; align-items:center; gap:7px; }
-  .asset-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+  .asset-dot  { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
   .asset-name { font-family:'DM Mono',monospace; font-size:12px; color:#c0cad8; font-weight:500; }
-  .asset-fname { font-size:10px; color:#3a4a5c; }
+  .asset-fname{ font-size:10px; color:#3a4a5c; }
   .td-mono { font-family:'DM Mono',monospace; font-size:11px; color:#6a7a8c; }
   .td-eur  { font-family:'DM Mono',monospace; font-size:12px; }
   .td-pct  { font-family:'DM Mono',monospace; font-size:11px; color:#3a4a5c; }
 
-  /* ── refresh btn ── */
-  .refresh-btn {
-    background:none; border:1px solid #1e2d3d; border-radius:7px; color:#4a5568;
-    cursor:pointer; font-size:11px; padding:5px 10px; font-family:'DM Mono',monospace;
-    transition:all .2s; white-space:nowrap;
-  }
-  .refresh-btn:hover, .refresh-btn:active { border-color:#00D4AA; color:#00D4AA; }
+  .refresh-btn { background:none; border:1px solid #1e2d3d; border-radius:7px; color:#4a5568; cursor:pointer; font-size:11px; padding:5px 10px; font-family:'DM Mono',monospace; transition:all .2s; white-space:nowrap; }
+  .refresh-btn:active { border-color:#00D4AA; color:#00D4AA; }
 
   .footer { text-align:center; color:#1e2d3d; font-size:9px; font-family:'DM Mono',monospace; padding:10px 0 28px; }
 
-  /* ── API key gate ── */
+  /* API key gate */
   #api-gate {
     position:fixed; inset:0; background:#060a0f; z-index:100;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:32px 24px; gap:20px;
+    padding:32px 24px; gap:18px; overflow-y:auto;
   }
   .gate-logo { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; }
   .gate-logo span { color:#00D4AA; }
-  .gate-desc { color:#4a5568; font-size:13px; font-family:'DM Mono',monospace; text-align:center; line-height:1.7; max-width:340px; }
+  .gate-desc { color:#4a5568; font-size:13px; font-family:'DM Mono',monospace; text-align:center; line-height:1.8; max-width:340px; }
+  .gate-desc a { color:#00D4AA; }
+  .gate-label { color:#3a4a5c; font-size:10px; font-family:'DM Mono',monospace; letter-spacing:1px; align-self:flex-start; width:100%; max-width:380px; }
   .gate-input {
     width:100%; max-width:380px; background:#0d1117; border:1px solid #1a2332;
     border-radius:10px; color:#e2e8f0; font-family:'DM Mono',monospace; font-size:13px;
-    padding:13px 16px; outline:none; transition:border-color .2s;
+    padding:13px 16px; outline:none; transition:border-color .2s; -webkit-appearance:none;
   }
   .gate-input:focus { border-color:#00D4AA; }
   .gate-btn {
@@ -203,36 +171,49 @@
     padding:14px; cursor:pointer; transition:opacity .2s;
   }
   .gate-btn:active { opacity:.8; }
-  .gate-note { color:#2a3a52; font-size:10px; font-family:'DM Mono',monospace; text-align:center; }
-  .gate-err { color:#ff4d6d; font-size:11px; font-family:'DM Mono',monospace; }
+  .gate-skip { background:none; border:1px solid #1a2332; border-radius:10px; color:#3a4a5c; font-family:'DM Mono',monospace; font-size:12px; padding:10px; width:100%; max-width:380px; cursor:pointer; }
+  .gate-skip:active { border-color:#3a4a5c; color:#6a7a8c; }
+  .gate-note { color:#2a3a52; font-size:10px; font-family:'DM Mono',monospace; text-align:center; max-width:340px; line-height:1.7; }
+  .gate-err  { color:#ff4d6d; font-size:11px; font-family:'DM Mono',monospace; display:none; }
+
+  .status-dot { font-size:9px; font-family:'DM Mono',monospace; color:#2a3a52; white-space:nowrap; }
 </style>
 </head>
 <body>
+
+<!-- API KEY GATE -->
 <div id="api-gate">
   <div class="gate-logo">WEALTH<span>DESK</span></div>
-  <div class="gate-desc">Enter your Anthropic API key to enable live stock &amp; crypto prices and FX rates.<br><br>Your key is stored only in this browser.</div>
-  <input class="gate-input" id="apiKeyInput" type="password" placeholder="sk-ant-api03-..." autocomplete="off" autocorrect="off" spellcheck="false"/>
-  <div class="gate-err" id="gateErr" style="display:none">Invalid key — make sure it starts with sk-ant-</div>
+  <div class="gate-desc">
+    Stock prices use <strong style="color:#e2e8f0">Finnhub</strong> (free).<br>
+    Get your free key at <a href="https://finnhub.io" target="_blank">finnhub.io</a> → Sign up → Dashboard.<br><br>
+    Crypto &amp; FX rates are fetched with no key required.
+  </div>
+  <div class="gate-label">FINNHUB API KEY</div>
+  <input class="gate-input" id="finnhubInput" type="text" placeholder="d1a2b3c4d5e6f7g8h9..." autocomplete="off" autocorrect="off" spellcheck="false"/>
+  <div class="gate-err" id="gateErr">Key looks invalid — check finnhub.io dashboard</div>
   <button class="gate-btn" id="gateBtn">Open WealthDesk →</button>
-  <div class="gate-note">Key is saved locally. You won't need to enter it again.</div>
+  <button class="gate-skip" id="gateSkip">Skip — I don't have stocks</button>
+  <div class="gate-note">Key saved in your browser. You won't be asked again.<br>Crypto &amp; FX always work without a key.</div>
 </div>
 
+<!-- MAIN APP -->
 <div id="app" style="display:none">
   <header class="fade fade1">
     <div>
       <div class="logo">WEALTH<span>DESK</span></div>
       <div class="logo-sub">Personal Net Worth · Base EUR</div>
     </div>
-    <div style="display:flex;align-items:center;gap:10px">
-      <span id="rateStatus" style="font-size:9px;font-family:'DM Mono',monospace;color:#2a3a52"></span>
-      <button class="refresh-btn" id="refreshRatesBtn">↻ rates</button>
+    <div class="header-right">
+      <span class="status-dot" id="rateStatus"></span>
+      <button class="refresh-btn" id="refreshBtn">↻ refresh</button>
     </div>
   </header>
 
   <div class="main">
 
     <!-- Hero -->
-    <div class="hero fade fade2" id="heroCard">
+    <div class="hero fade fade2">
       <div class="hero-glow"></div>
       <div class="hero-body">
         <div>
@@ -241,20 +222,17 @@
           <div class="hero-sub" id="heroSub" style="display:none"></div>
         </div>
         <div class="donut-wrap">
-          <svg id="donutSvg" width="130" height="130" viewBox="0 0 160 160" style="transform:rotate(-90deg);flex-shrink:0">
+          <svg id="donutSvg" width="120" height="120" viewBox="0 0 160 160" style="transform:rotate(-90deg);flex-shrink:0">
             <circle cx="80" cy="80" r="64" fill="none" stroke="#1a2332" stroke-width="16"/>
-            <text x="80" y="80" text-anchor="middle" dy="0.35em" fill="#3a4a5c" font-size="11" font-family="DM Mono,monospace" style="transform:rotate(90deg);transform-origin:80px 80px">no data</text>
           </svg>
           <div class="legend" id="legend"></div>
         </div>
       </div>
     </div>
 
-    <!-- Investment Holdings -->
+    <!-- Stocks -->
     <div class="section-label fade fade3">Investment Holdings</div>
-
-    <!-- Broker -->
-    <div class="card fade fade3" id="brokerCard" style="--accent:#00D4AA;--accent-dim:#00D4AA44">
+    <div class="card fade fade3" id="brokerCard" style="--accent:#00D4AA;--accent-border:#00D4AA44;--accent-dim:#00D4AA55">
       <div class="card-header">
         <div class="card-title">
           <span style="font-size:18px">📈</span>
@@ -269,12 +247,12 @@
         <div class="col-h" style="flex:1">VALUE (EUR)</div>
       </div>
       <div id="brokerRows"></div>
-      <button class="add-btn" onclick="addRow('broker')">+ add stock</button>
-      <div class="prog-bg"><div class="prog-fill" id="brokerProg" style="width:0%"></div></div>
+      <button class="add-btn" onclick="addRow('broker')" style="--accent:#00D4AA;--accent-border:#00D4AA44">+ add stock</button>
+      <div class="prog-bg"><div class="prog-fill" id="brokerProg" style="background:#00D4AA;width:0%"></div></div>
     </div>
 
     <!-- Crypto -->
-    <div class="card fade fade3" id="cryptoCard" style="--accent:#F7931A;--accent-dim:#F7931A44">
+    <div class="card fade fade3" id="cryptoCard" style="--accent:#F7931A;--accent-border:#F7931A44;--accent-dim:#F7931A55">
       <div class="card-header">
         <div class="card-title">
           <span style="font-size:18px">₿</span>
@@ -284,20 +262,19 @@
         <div class="card-total" id="cryptoTotal">—</div>
       </div>
       <div class="col-headers">
-        <div class="col-h" style="width:86px">TICKER</div>
-        <div class="col-h" style="width:76px">COINS</div>
+        <div class="col-h" style="width:86px">COIN</div>
+        <div class="col-h" style="width:76px">AMOUNT</div>
         <div class="col-h" style="flex:1">VALUE (EUR)</div>
       </div>
       <div id="cryptoRows"></div>
-      <button class="add-btn" onclick="addRow('crypto')" style="--accent:#F7931A">+ add coin</button>
+      <button class="add-btn" onclick="addRow('crypto')" style="--accent:#F7931A;--accent-border:#F7931A44">+ add coin</button>
       <div class="prog-bg"><div class="prog-fill" id="cryptoProg" style="background:#F7931A;width:0%"></div></div>
     </div>
 
-    <!-- Bank Accounts -->
+    <!-- Banks -->
     <div class="section-label fade fade4">Bank Accounts</div>
 
-    <!-- BBVA España -->
-    <div class="card fade fade4" id="spainCard" style="--accent:#4A9EFF;--accent-dim:#4A9EFF44">
+    <div class="card fade fade4" id="spainCard" style="--accent:#4A9EFF;--accent-border:#4A9EFF44">
       <div class="card-header">
         <div class="card-title">
           <span style="font-size:18px">🇪🇸</span>
@@ -310,16 +287,15 @@
         <span class="bank-sym">€</span>
         <input class="bank-input" id="spainBal" type="number" min="0" placeholder="0"
           oninput="onBankChange('spain')"
-          style="--accent:#4A9EFF" onfocus="this.style.borderColor='#4A9EFF'" onblur="this.style.borderColor='#1a2332'"/>
+          onfocus="this.style.borderColor='#4A9EFF'" onblur="this.style.borderColor='#1a2332'"/>
       </div>
       <div class="bank-sub">
-        <span class="bank-eur" id="spainEurSub">—</span>
+        <span class="bank-eur" id="spainSub">—</span>
       </div>
       <div class="prog-bg"><div class="prog-fill" id="spainProg" style="background:#4A9EFF;width:0%"></div></div>
     </div>
 
-    <!-- Banco México -->
-    <div class="card fade fade4" id="mexicoCard" style="--accent:#CE1126;--accent-dim:#CE112644">
+    <div class="card fade fade4" id="mexicoCard" style="--accent:#CE1126;--accent-border:#CE112644">
       <div class="card-header">
         <div class="card-title">
           <span style="font-size:18px">🇲🇽</span>
@@ -335,501 +311,404 @@
           onfocus="this.style.borderColor='#CE1126'" onblur="this.style.borderColor='#1a2332'"/>
       </div>
       <div class="bank-sub">
-        <span class="bank-eur" id="mexicoEurSub">—</span>
-        <span class="bank-pct" id="mexicoPct" style="color:#CE1126"></span>
+        <span class="bank-eur" id="mexicoSub">—</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#CE1126" id="mexicoPct"></span>
       </div>
       <div class="prog-bg"><div class="prog-fill" id="mexicoProg" style="background:#CE1126;width:0%"></div></div>
     </div>
 
     <!-- FX Bar -->
-    <div class="fx-bar fade fade4" id="fxBar">
+    <div class="fx-bar fade fade4">
       <span class="fx-label">FX</span>
-      <div class="fx-pair"><span class="fx-from">USD→EUR</span><span class="fx-val" id="fx-usd-eur">—</span></div>
-      <div class="fx-pair"><span class="fx-from">MXN→EUR</span><span class="fx-val" id="fx-mxn-eur">—</span></div>
-      <div class="fx-pair"><span class="fx-from">EUR→MXN</span><span class="fx-val" id="fx-eur-mxn">—</span></div>
-      <div class="fx-pair"><span class="fx-from">USD→MXN</span><span class="fx-val" id="fx-usd-mxn">—</span></div>
-      <span class="fx-live" id="fxLive">○ estimated</span>
+      <div class="fx-pair"><span class="fx-from">USD→EUR</span><span class="fx-val" id="fx1">—</span></div>
+      <div class="fx-pair"><span class="fx-from">MXN→EUR</span><span class="fx-val" id="fx2">—</span></div>
+      <div class="fx-pair"><span class="fx-from">EUR→MXN</span><span class="fx-val" id="fx3">—</span></div>
+      <div class="fx-pair"><span class="fx-from">USD→MXN</span><span class="fx-val" id="fx4">—</span></div>
+      <span class="fx-live" id="fxLive">○ loading</span>
     </div>
 
     <!-- Breakdown -->
     <div class="breakdown fade fade5" id="breakdown" style="display:none">
       <div class="breakdown-head">HOLDINGS DETAIL</div>
       <table>
-        <thead><tr>
-          <th>Asset</th><th>Qty</th><th>Price USD</th><th>Value EUR</th><th>%</th>
-        </tr></thead>
+        <thead><tr><th>Asset</th><th>Qty</th><th>Price USD</th><th>Value EUR</th><th>%</th></tr></thead>
         <tbody id="breakdownBody"></tbody>
       </table>
     </div>
 
-    <div class="footer">Data stays in your browser · Nothing stored externally</div>
+    <div class="footer">Prices: Finnhub · Crypto: CoinGecko · FX: Frankfurter (ECB)</div>
   </div>
 </div>
 
 <script>
-// ── State ──────────────────────────────────────────────────────────────────
+// ── Config & State ─────────────────────────────────────────────────────────
 const MOCK_RATES = { USD_EUR: 0.922, MXN_EUR: 0.0476 };
 let rates = { ...MOCK_RATES };
 let ratesLive = false;
-let API_KEY = '';
+let FINNHUB_KEY = '';
 
-// Holdings: { id, ticker, shares, priceUSD, name, status, type }
 let brokerHoldings = [];
 let cryptoHoldings = [];
-let spainBalance = 0;
-let mexicoBalance = 0;
+let spainBal = 0, mexicoBal = 0;
+let idCtr = 1;
 
-let idCounter = 1;
+// CoinGecko ID map for common tickers
+const COINGECKO_IDS = {
+  BTC:'bitcoin', ETH:'ethereum', SOL:'solana', BNB:'binancecoin',
+  XRP:'ripple', ADA:'cardano', DOGE:'dogecoin', DOT:'polkadot',
+  AVAX:'avalanche-2', MATIC:'matic-network', LINK:'chainlink',
+  UNI:'uniswap', LTC:'litecoin', ATOM:'cosmos', FTM:'fantom',
+  NEAR:'near', APT:'aptos', ARB:'arbitrum', OP:'optimism',
+  INJ:'injective-protocol', SUI:'sui', TRX:'tron', TON:'the-open-network',
+};
+
 function makeHolding(type) {
-  return { id: idCounter++, ticker: '', shares: '', priceUSD: null, name: '', status: 'idle', type };
+  return { id: idCtr++, ticker:'', shares:'', priceUSD:null, name:'', status:'idle', type };
 }
 
 // ── Persistence ────────────────────────────────────────────────────────────
 function save() {
   try {
-    localStorage.setItem('wd_broker', JSON.stringify(brokerHoldings));
-    localStorage.setItem('wd_crypto', JSON.stringify(cryptoHoldings));
-    localStorage.setItem('wd_spain', spainBalance);
-    localStorage.setItem('wd_mexico', mexicoBalance);
+    localStorage.setItem('wd2_broker',  JSON.stringify(brokerHoldings));
+    localStorage.setItem('wd2_crypto',  JSON.stringify(cryptoHoldings));
+    localStorage.setItem('wd2_spain',   spainBal);
+    localStorage.setItem('wd2_mexico',  mexicoBal);
   } catch(e) {}
 }
-
 function load() {
   try {
-    const b = localStorage.getItem('wd_broker');
-    const c = localStorage.getItem('wd_crypto');
-    if (b) brokerHoldings = JSON.parse(b).map(h => ({...h, status:'idle', priceUSD:null}));
-    if (c) cryptoHoldings = JSON.parse(c).map(h => ({...h, status:'idle', priceUSD:null}));
-    spainBalance  = parseFloat(localStorage.getItem('wd_spain')  || 0);
-    mexicoBalance = parseFloat(localStorage.getItem('wd_mexico') || 0);
-    if (spainBalance)  document.getElementById('spainBal').value  = spainBalance;
-    if (mexicoBalance) document.getElementById('mexicoBal').value = mexicoBalance;
+    const b = localStorage.getItem('wd2_broker');
+    const c = localStorage.getItem('wd2_crypto');
+    if (b) brokerHoldings = JSON.parse(b).map(h=>({...h,status:'idle',priceUSD:null}));
+    if (c) cryptoHoldings = JSON.parse(c).map(h=>({...h,status:'idle',priceUSD:null}));
+    spainBal  = parseFloat(localStorage.getItem('wd2_spain')  || 0) || 0;
+    mexicoBal = parseFloat(localStorage.getItem('wd2_mexico') || 0) || 0;
+    if (spainBal)  document.getElementById('spainBal').value  = spainBal;
+    if (mexicoBal) document.getElementById('mexicoBal').value = mexicoBal;
   } catch(e) {}
 }
 
 // ── Formatting ─────────────────────────────────────────────────────────────
-function fmtEUR(n) {
-  return new Intl.NumberFormat('es-ES', { style:'currency', currency:'EUR', minimumFractionDigits:2, maximumFractionDigits:2 }).format(n);
-}
-function fmtCur(n, cur) {
-  return new Intl.NumberFormat('es-ES', { style:'currency', currency:cur, minimumFractionDigits:0, maximumFractionDigits:2 }).format(n);
-}
-function toEUR(usd) { return usd * (rates.USD_EUR || MOCK_RATES.USD_EUR); }
-function mxnToEUR(mxn) { return mxn * (rates.MXN_EUR || MOCK_RATES.MXN_EUR); }
+const fmtEUR = n => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+const toEUR  = usd => usd * (rates.USD_EUR || MOCK_RATES.USD_EUR);
+const mxn2EUR= mxn => mxn * (rates.MXN_EUR || MOCK_RATES.MXN_EUR);
 
-// ── API helpers ────────────────────────────────────────────────────────────
-async function callClaude(body) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-    body: JSON.stringify(body)
-  });
-  return res.json();
-}
-
-// ── FX Rates ───────────────────────────────────────────────────────────────
+// ── FX: Frankfurter (ECB, free, no key) ───────────────────────────────────
 async function fetchRates() {
-  document.getElementById('rateStatus').textContent = 'fetching rates…';
-  document.getElementById('rateStatus').style.animation = 'pulse 1.4s infinite';
+  setStatus('fetching rates…', true);
   try {
-    const messages = [{ role:'user', content:'Search for today\'s exchange rates: USD to EUR and MXN to EUR. After searching, output ONLY this JSON with real numbers: {"USD_EUR":0.922,"MXN_EUR":0.0476}' }];
-    for (let i = 0; i < 5; i++) {
-      const data = await callClaude({ model:'claude-sonnet-4-20250514', max_tokens:500, tools:[{type:'web_search_20250305',name:'web_search'}], messages });
-      if (!data.content) break;
-      messages.push({ role:'assistant', content:data.content });
-      if (data.stop_reason === 'end_turn') {
-        const text = data.content.filter(b=>b.type==='text').map(b=>b.text).join(' ');
-        const m = text.match(/\{[^{}]+\}/);
-        if (m) {
-          const p = JSON.parse(m[0]);
-          if (p.USD_EUR && p.MXN_EUR) { rates = p; ratesLive = true; }
-        }
-        break;
-      }
-      if (data.stop_reason === 'tool_use') {
-        const tus = data.content.filter(b=>b.type==='tool_use');
-        messages.push({ role:'user', content: tus.map(tu=>({ type:'tool_result', tool_use_id:tu.id, content:'done' })) });
-      }
+    // Frankfurter gives EUR base, so we get USD and MXN per 1 EUR
+    const res = await fetch('https://api.frankfurter.app/latest?from=EUR&to=USD,MXN');
+    const data = await res.json();
+    if (data.rates && data.rates.USD && data.rates.MXN) {
+      rates.USD_EUR = 1 / data.rates.USD;   // USD→EUR
+      rates.MXN_EUR = 1 / data.rates.MXN;   // MXN→EUR
+      ratesLive = true;
     }
-  } catch(e) {}
+  } catch(e) { console.warn('FX fetch failed, using estimates'); }
   updateFXBar();
-  document.getElementById('rateStatus').style.animation = '';
-  const now = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('rateStatus').textContent = (ratesLive ? '● live' : '○ est') + ' · ' + now;
-  recalcAll();
-  // Re-fetch prices with new rates
-  [...brokerHoldings, ...cryptoHoldings].filter(h=>h.ticker).forEach(h=>{ h.status='idle'; triggerFetch(h); });
+  setStatus(ratesLive ? '● live' : '○ est', false);
 }
 
 function updateFXBar() {
   const r = rates;
-  document.getElementById('fx-usd-eur').textContent = r.USD_EUR.toFixed(4);
-  document.getElementById('fx-mxn-eur').textContent = r.MXN_EUR.toFixed(5);
-  document.getElementById('fx-eur-mxn').textContent = (1/r.MXN_EUR).toFixed(2);
-  document.getElementById('fx-usd-mxn').textContent = (r.USD_EUR/r.MXN_EUR).toFixed(2);
-  document.getElementById('fxLive').textContent = ratesLive ? '● live' : '○ estimated';
+  document.getElementById('fx1').textContent = r.USD_EUR.toFixed(4);
+  document.getElementById('fx2').textContent = r.MXN_EUR.toFixed(5);
+  document.getElementById('fx3').textContent = (1/r.MXN_EUR).toFixed(2);
+  document.getElementById('fx4').textContent = (r.USD_EUR/r.MXN_EUR).toFixed(2);
+  document.getElementById('fxLive').textContent = ratesLive ? '● ECB live' : '○ estimated';
 }
 
-// ── Price fetching ─────────────────────────────────────────────────────────
-function normalizeTicker(raw) {
-  return raw.trim().toUpperCase().replace(/[-\/:]?(USD|USDT|EUR|GBP)$/, '');
+function setStatus(msg, pulsing) {
+  const el = document.getElementById('rateStatus');
+  el.textContent = msg;
+  el.style.animation = pulsing ? 'pulse 1.4s infinite' : '';
 }
 
-function extractPrice(text) {
-  // Try JSON first
-  const m = text.match(/\{[^{}]+\}/);
-  if (m) {
-    try {
-      const p = JSON.parse(m[0]);
-      if (p.priceUSD && !isNaN(p.priceUSD) && +p.priceUSD > 0)
-        return { price: +p.priceUSD, name: p.name || '' };
-    } catch {}
-  }
-  // Regex: grab numbers that look like prices
-  const nums = [...text.matchAll(/\$?\s*([0-9]{1,8}(?:[,\.][0-9]+)*)/g)]
-    .map(m => parseFloat(m[1].replace(/,/g,'')))
-    .filter(n => n > 0.00001 && n < 10000000);
-  if (nums.length) return { price: nums[0], name: '' };
-  return null;
+// ── Stock prices: Finnhub ──────────────────────────────────────────────────
+async function fetchStockPrice(ticker) {
+  if (!FINNHUB_KEY) return null;
+  try {
+    const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${FINNHUB_KEY}`);
+    const data = await res.json();
+    // 'c' = current price
+    if (data.c && data.c > 0) return { priceUSD: data.c, name: ticker };
+    return null;
+  } catch(e) { return null; }
 }
 
-const fetchTimers = {};
+// ── Crypto prices: CoinGecko (free, no key) ────────────────────────────────
+async function fetchCryptoPrice(ticker) {
+  const t = ticker.toUpperCase();
+  const cgId = COINGECKO_IDS[t] || t.toLowerCase();
+  try {
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cgId}&vs_currencies=usd`);
+    const data = await res.json();
+    if (data[cgId] && data[cgId].usd) {
+      return { priceUSD: data[cgId].usd, name: cgId };
+    }
+    // Fallback: try search
+    const s = await fetch(`https://api.coingecko.com/api/v3/search?query=${ticker}`);
+    const sd = await s.json();
+    const coin = sd.coins && sd.coins[0];
+    if (coin) {
+      const p = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coin.id}&vs_currencies=usd`);
+      const pd = await p.json();
+      if (pd[coin.id] && pd[coin.id].usd) return { priceUSD: pd[coin.id].usd, name: coin.name };
+    }
+    return null;
+  } catch(e) { return null; }
+}
+
+// ── Fetch dispatcher ───────────────────────────────────────────────────────
+const timers = {};
 function triggerFetch(h) {
-  const arr = h.type === 'broker' ? brokerHoldings : cryptoHoldings;
-  const ticker = normalizeTicker(h.ticker);
+  const ticker = h.ticker.trim().toUpperCase().replace(/[-\/:]?(USD|USDT|EUR|GBP)$/,'');
   if (!ticker) return;
-  clearTimeout(fetchTimers[h.id]);
-  fetchTimers[h.id] = setTimeout(() => doFetch(h, ticker), 1200);
+  clearTimeout(timers[h.id]);
+  timers[h.id] = setTimeout(() => doFetch(h, ticker), 900);
 }
 
 async function doFetch(h, ticker) {
-  const arr = h.type === 'broker' ? brokerHoldings : cryptoHoldings;
-  const assetType = h.type === 'crypto' ? 'cryptocurrency' : 'stock';
-
-  // Set loading
   h.status = 'loading';
   renderCard(h.type);
 
-  const systemPrompt = `You are a financial data assistant. After searching, output ONLY JSON: {"ticker":"${ticker}","name":"Full Name","priceUSD":123.45}. No markdown, no explanation.`;
-  const messages = [{ role:'user', content:`Current USD price of ${assetType} ${ticker}?` }];
+  const result = h.type === 'broker'
+    ? await fetchStockPrice(ticker)
+    : await fetchCryptoPrice(ticker);
 
-  try {
-    for (let i = 0; i < 6; i++) {
-      const data = await callClaude({ model:'claude-sonnet-4-20250514', max_tokens:800, system:systemPrompt, tools:[{type:'web_search_20250305',name:'web_search'}], messages });
-      if (!data.content) break;
-      messages.push({ role:'assistant', content:data.content });
-      if (data.stop_reason === 'end_turn') {
-        const text = data.content.filter(b=>b.type==='text').map(b=>b.text).join(' ');
-        const ex = extractPrice(text);
-        if (ex && ex.price > 0) {
-          h.priceUSD = ex.price;
-          h.name = ex.name || ticker;
-          h.status = 'ok';
-        } else {
-          h.status = 'error';
-        }
-        break;
-      }
-      if (data.stop_reason === 'tool_use') {
-        const tus = data.content.filter(b=>b.type==='tool_use');
-        messages.push({ role:'user', content: tus.map(tu=>({ type:'tool_result', tool_use_id:tu.id, content:'done' })) });
-        continue;
-      }
-      break;
-    }
-  } catch(e) { h.status = 'error'; }
+  if (result && result.priceUSD > 0) {
+    h.priceUSD = result.priceUSD;
+    h.name     = result.name || ticker;
+    h.status   = 'ok';
+  } else {
+    h.status = 'error';
+  }
 
-  if (h.status !== 'ok') h.status = 'error';
   save();
   renderCard(h.type);
-  recalcAll();
+  recalc();
 }
 
-// ── Rendering ──────────────────────────────────────────────────────────────
+// ── Row rendering ──────────────────────────────────────────────────────────
 function renderCard(type) {
-  const arr = type === 'broker' ? brokerHoldings : cryptoHoldings;
+  const arr    = type === 'broker' ? brokerHoldings : cryptoHoldings;
   const accent = type === 'broker' ? '#00D4AA' : '#F7931A';
-  const container = document.getElementById(type + 'Rows');
-  container.innerHTML = '';
+  const cont   = document.getElementById(type + 'Rows');
+  cont.innerHTML = '';
 
   arr.forEach(h => {
     const valEUR = h.status==='ok' && h.priceUSD && h.shares
       ? toEUR(h.priceUSD * parseFloat(h.shares)) : null;
+    const sc = h.status==='ok' ? accent : h.status==='loading' ? '#F7931A' : h.status==='error' ? '#ff4d6d' : '#2a3a52';
 
-    const statusColor = h.status==='ok' ? accent : h.status==='loading' ? '#F7931A' : h.status==='error' ? '#ff4d6d' : '#2a3a52';
+    let valHTML = '—';
+    if (h.status==='loading') valHTML = `<span style="animation:pulse 1.2s infinite;display:inline-block">searching…</span>`;
+    else if (h.status==='error') {
+      const msg = type==='broker' && !FINNHUB_KEY ? 'no API key' : 'not found';
+      valHTML = `<span style="cursor:pointer;text-decoration:underline" onclick="retryRow(${h.id},'${type}')">${msg} — retry?</span>`;
+    }
+    else if (valEUR !== null) valHTML = fmtEUR(valEUR);
 
-    let valueHTML = '';
-    if (h.status === 'loading') valueHTML = `<span style="animation:pulse 1.2s infinite;display:inline-block">⏳ searching…</span>`;
-    else if (h.status === 'error') valueHTML = `<span style="cursor:pointer;text-decoration:underline" onclick="retryFetch(${h.id},'${type}')">not found — retry?</span>`;
-    else if (h.status === 'ok' && valEUR !== null) valueHTML = fmtEUR(valEUR);
-    else valueHTML = '—';
-
-    const row = document.createElement('div');
-    row.className = 'h-row';
-    row.innerHTML = `
-      <input class="h-input ticker" type="text" value="${h.ticker}" placeholder="AAPL"
-        oninput="onTickerChange(${h.id},'${type}',this.value)"
-        onkeydown="if(event.key==='Enter')retryFetch(${h.id},'${type}')"
-        style="border-color:${h.ticker ? '#1a2332' : '#1a2332'}"
+    const div = document.createElement('div');
+    div.className = 'h-row';
+    div.innerHTML = `
+      <input class="h-input ticker" type="text" value="${h.ticker}" placeholder="${type==='broker'?'AAPL':'BTC'}"
+        oninput="onTicker(${h.id},'${type}',this.value)"
+        onkeydown="if(event.key==='Enter')retryRow(${h.id},'${type}')"
         onfocus="this.style.borderColor='${accent}'" onblur="this.style.borderColor='#1a2332'"
         autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"/>
-      <input class="h-input shares" type="number" min="0" value="${h.shares}" placeholder="0"
-        oninput="onSharesChange(${h.id},'${type}',this.value)"
+      <input class="h-input shares" type="number" min="0" step="any" value="${h.shares}" placeholder="0"
+        oninput="onShares(${h.id},'${type}',this.value)"
         onfocus="this.style.borderColor='${accent}'" onblur="this.style.borderColor='#1a2332'"/>
-      <div class="h-value" style="color:${statusColor};border-color:${statusColor}33">${valueHTML}</div>
+      <div class="h-value" style="color:${sc};border-color:${sc}22">${valHTML}</div>
       <button class="h-remove" onclick="removeRow(${h.id},'${type}')">×</button>`;
-    container.appendChild(row);
+    cont.appendChild(div);
   });
 }
 
 function addRow(type) {
   const h = makeHolding(type);
-  if (type === 'broker') brokerHoldings.push(h);
-  else cryptoHoldings.push(h);
-  renderCard(type);
-  save();
+  (type==='broker' ? brokerHoldings : cryptoHoldings).push(h);
+  renderCard(type); save();
 }
-
 function removeRow(id, type) {
-  if (type === 'broker') brokerHoldings = brokerHoldings.filter(h=>h.id!==id);
+  if (type==='broker') brokerHoldings = brokerHoldings.filter(h=>h.id!==id);
   else cryptoHoldings = cryptoHoldings.filter(h=>h.id!==id);
-  clearTimeout(fetchTimers[id]);
-  renderCard(type);
-  recalcAll();
-  save();
+  clearTimeout(timers[id]);
+  renderCard(type); recalc(); save();
 }
-
-function onTickerChange(id, type, val) {
-  const arr = type === 'broker' ? brokerHoldings : cryptoHoldings;
-  const h = arr.find(x=>x.id===id);
+function onTicker(id, type, val) {
+  const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
   if (!h) return;
-  h.ticker = val.toUpperCase();
-  h.status = 'idle'; h.priceUSD = null; h.name = '';
+  h.ticker = val.toUpperCase(); h.status='idle'; h.priceUSD=null; h.name='';
   if (h.ticker.length >= 1) triggerFetch(h);
   save();
 }
-
-function onSharesChange(id, type, val) {
-  const arr = type === 'broker' ? brokerHoldings : cryptoHoldings;
-  const h = arr.find(x=>x.id===id);
+function onShares(id, type, val) {
+  const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
   if (!h) return;
   h.shares = val;
-  renderCard(type);
-  recalcAll();
-  save();
+  renderCard(type); recalc(); save();
 }
-
-function retryFetch(id, type) {
-  const arr = type === 'broker' ? brokerHoldings : cryptoHoldings;
-  const h = arr.find(x=>x.id===id);
+function retryRow(id, type) {
+  const h = (type==='broker'?brokerHoldings:cryptoHoldings).find(x=>x.id===id);
   if (!h) return;
-  h.status = 'idle'; h.priceUSD = null;
-  if (h.ticker) triggerFetch(h);
+  h.status='idle'; h.priceUSD=null;
+  triggerFetch(h);
 }
-
 function onBankChange(which) {
-  if (which === 'spain') spainBalance = parseFloat(document.getElementById('spainBal').value)||0;
-  else mexicoBalance = parseFloat(document.getElementById('mexicoBal').value)||0;
-  recalcAll();
-  save();
+  if (which==='spain')  spainBal  = parseFloat(document.getElementById('spainBal').value)||0;
+  else                  mexicoBal = parseFloat(document.getElementById('mexicoBal').value)||0;
+  recalc(); save();
 }
 
-// ── Totals & Donut ─────────────────────────────────────────────────────────
+// ── Recalculate totals ─────────────────────────────────────────────────────
 function holdingsEUR(arr) {
-  return arr.reduce((s,h) => {
-    if (h.status==='ok' && h.priceUSD && h.shares)
-      return s + toEUR(h.priceUSD * parseFloat(h.shares));
-    return s;
-  }, 0);
+  return arr.reduce((s,h) => h.status==='ok'&&h.priceUSD&&h.shares ? s+toEUR(h.priceUSD*parseFloat(h.shares)) : s, 0);
 }
 
-function recalcAll() {
-  const brokerEUR = holdingsEUR(brokerHoldings);
-  const cryptoEUR = holdingsEUR(cryptoHoldings);
-  const spainEUR  = spainBalance;
-  const mexicoEUR = mxnToEUR(mexicoBalance);
-  const total = brokerEUR + cryptoEUR + spainEUR + mexicoEUR;
+function recalc() {
+  const bEUR = holdingsEUR(brokerHoldings);
+  const cEUR = holdingsEUR(cryptoHoldings);
+  const sEUR = spainBal;
+  const mEUR = mxn2EUR(mexicoBal);
+  const total= bEUR+cEUR+sEUR+mEUR;
 
   // Hero
-  const heroEl = document.getElementById('heroValue');
-  if (total > 0) {
-    heroEl.textContent = fmtEUR(total);
-    heroEl.classList.add('active');
-    const srcCount = [brokerEUR,cryptoEUR,spainEUR,mexicoEUR].filter(v=>v>0).length;
-    const sub = document.getElementById('heroSub');
-    sub.style.display = '';
-    sub.textContent = srcCount + ' active source' + (srcCount!==1?'s':'');
-  } else {
-    heroEl.textContent = '— —';
-    heroEl.classList.remove('active');
-    document.getElementById('heroSub').style.display = 'none';
-  }
+  const hv = document.getElementById('heroValue');
+  hv.textContent = total>0 ? fmtEUR(total) : '— —';
+  hv.classList.toggle('active', total>0);
+  const hs = document.getElementById('heroSub');
+  const n = [bEUR,cEUR,sEUR,mEUR].filter(v=>v>0).length;
+  hs.style.display = total>0 ? '' : 'none';
+  hs.textContent = n + ' active source' + (n!==1?'s':'');
 
-  // Card totals & progress
+  // Per-source
   const sources = [
-    { id:'broker', eur:brokerEUR, color:'#00D4AA' },
-    { id:'crypto', eur:cryptoEUR, color:'#F7931A' },
-    { id:'spain',  eur:spainEUR,  color:'#4A9EFF' },
-    { id:'mexico', eur:mexicoEUR, color:'#CE1126' },
+    {id:'broker', eur:bEUR, color:'#00D4AA'},
+    {id:'crypto', eur:cEUR, color:'#F7931A'},
+    {id:'spain',  eur:sEUR, color:'#4A9EFF'},
+    {id:'mexico', eur:mEUR, color:'#CE1126'},
   ];
   sources.forEach(s => {
-    const tot = document.getElementById(s.id+'Total');
-    if (tot) { tot.textContent = s.eur > 0 ? fmtEUR(s.eur) : '—'; tot.classList.toggle('active', s.eur>0); }
-    const prog = document.getElementById(s.id+'Prog');
-    if (prog) prog.style.width = total>0 ? Math.min((s.eur/total)*100,100)+'%' : '0%';
-    const card = document.getElementById(s.id+'Card');
-    if (card) card.classList.toggle('active', s.eur>0);
+    const t = document.getElementById(s.id+'Total');
+    if (t) { t.textContent=s.eur>0?fmtEUR(s.eur):'—'; t.classList.toggle('active',s.eur>0); }
+    const p = document.getElementById(s.id+'Prog');
+    if (p) p.style.width = total>0 ? Math.min((s.eur/total)*100,100)+'%' : '0%';
+    const c = document.getElementById(s.id+'Card');
+    if (c) c.classList.toggle('active',s.eur>0);
   });
 
   // Bank subs
-  const spainSub = document.getElementById('spainEurSub');
-  spainSub.textContent = spainEUR > 0 ? fmtEUR(spainEUR) : '—';
-  spainSub.classList.toggle('active', spainEUR>0);
+  const ss = document.getElementById('spainSub');
+  ss.textContent = sEUR>0 ? fmtEUR(sEUR) : '—';
+  ss.classList.toggle('active', sEUR>0);
+  const ms = document.getElementById('mexicoSub');
+  ms.textContent = mEUR>0 ? '≈ '+fmtEUR(mEUR) : '—';
+  ms.classList.toggle('active', mEUR>0);
+  document.getElementById('mexicoPct').textContent = total>0&&mEUR>0 ? ((mEUR/total)*100).toFixed(1)+'%' : '';
 
-  const mexSub = document.getElementById('mexicoEurSub');
-  mexSub.textContent = mexicoEUR > 0 ? '≈ '+fmtEUR(mexicoEUR) : '—';
-  mexSub.classList.toggle('active', mexicoEUR>0);
+  // Donut + legend
+  renderDonut(sources, total);
 
-  const mexPct = document.getElementById('mexicoPct');
-  mexPct.textContent = total>0 && mexicoEUR>0 ? ((mexicoEUR/total)*100).toFixed(1)+'%' : '';
-
-  // Donut
-  renderDonut([
-    { color:'#00D4AA', value:brokerEUR },
-    { color:'#F7931A', value:cryptoEUR },
-    { color:'#4A9EFF', value:spainEUR  },
-    { color:'#CE1126', value:mexicoEUR },
-  ], total);
-
-  // Legend
-  renderLegend(sources, total);
-
-  // Breakdown table
-  renderBreakdown(total);
-}
-
-function renderDonut(slices, total) {
-  const svg = document.getElementById('donutSvg');
-  // Remove old arcs
-  svg.querySelectorAll('.arc').forEach(el=>el.remove());
-  svg.querySelectorAll('text').forEach(el=>el.remove());
-
-  const r=64, cx=80, cy=80, sw=16, circ=2*Math.PI*r;
-
-  if (total <= 0) {
-    const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
-    txt.setAttribute('x',cx); txt.setAttribute('y',cy);
-    txt.setAttribute('text-anchor','middle'); txt.setAttribute('dy','0.35em');
-    txt.setAttribute('fill','#3a4a5c'); txt.setAttribute('font-size','11');
-    txt.setAttribute('font-family','DM Mono,monospace');
-    txt.style.transform='rotate(90deg)'; txt.style.transformOrigin='80px 80px';
-    txt.textContent='no data'; svg.appendChild(txt);
-    return;
-  }
-
-  let off = 0;
-  slices.filter(s=>s.value>0).forEach(s => {
-    const d = (s.value/total)*circ;
-    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    circle.setAttribute('cx',cx); circle.setAttribute('cy',cy); circle.setAttribute('r',r);
-    circle.setAttribute('fill','none'); circle.setAttribute('stroke',s.color);
-    circle.setAttribute('stroke-width',sw);
-    circle.setAttribute('stroke-dasharray',`${d} ${circ-d}`);
-    circle.setAttribute('stroke-dashoffset',-off);
-    circle.setAttribute('class','arc');
-    circle.style.transition='stroke-dasharray 0.6s ease';
-    svg.appendChild(circle);
-    off += d;
-  });
-}
-
-function renderLegend(sources, total) {
-  const leg = document.getElementById('legend');
-  const labels = { broker:'Broker', crypto:'Crypto', spain:'BBVA ES', mexico:'Banco MX' };
-  leg.innerHTML = '';
-  sources.filter(s=>s.eur>0).forEach(s => {
-    const row = document.createElement('div');
-    row.className = 'legend-row';
-    row.innerHTML = `<div class="legend-dot" style="background:${s.color}"></div><span class="legend-label">${labels[s.id]}</span><span class="legend-pct">${total>0?((s.eur/total)*100).toFixed(1):0}%</span>`;
-    leg.appendChild(row);
-  });
-}
-
-function renderBreakdown(total) {
-  const all = [
+  // Breakdown
+  const allH = [
     ...brokerHoldings.filter(h=>h.status==='ok'&&h.priceUSD&&h.shares).map(h=>({...h,color:'#00D4AA'})),
     ...cryptoHoldings.filter(h=>h.status==='ok'&&h.priceUSD&&h.shares).map(h=>({...h,color:'#F7931A'})),
   ];
   const bd = document.getElementById('breakdown');
-  bd.style.display = all.length ? '' : 'none';
-  const tbody = document.getElementById('breakdownBody');
-  tbody.innerHTML = '';
-  all.forEach(h => {
-    const valEUR = toEUR(h.priceUSD * parseFloat(h.shares));
+  bd.style.display = allH.length ? '' : 'none';
+  const tb = document.getElementById('breakdownBody');
+  tb.innerHTML = '';
+  allH.forEach(h => {
+    const v = toEUR(h.priceUSD*parseFloat(h.shares));
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><div class="asset-cell">
         <div class="asset-dot" style="background:${h.color}"></div>
         <span class="asset-name">${h.ticker}</span>
-        ${h.name&&h.name!==h.ticker?`<span class="asset-fname">${h.name}</span>`:''}
+        ${h.name&&h.name!==h.ticker?`<span class="asset-fname">${h.name.slice(0,12)}</span>`:''}
       </div></td>
-      <td class="td-mono">${parseFloat(h.shares).toLocaleString()}</td>
-      <td class="td-mono">$${h.priceUSD.toFixed(2)}</td>
-      <td class="td-eur" style="color:${h.color}">${fmtEUR(valEUR)}</td>
-      <td class="td-pct">${total>0?((valEUR/total)*100).toFixed(1):0}%</td>`;
-    tbody.appendChild(tr);
+      <td class="td-mono">${parseFloat(h.shares).toLocaleString('es-ES',{maximumFractionDigits:6})}</td>
+      <td class="td-mono">$${h.priceUSD.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+      <td class="td-eur" style="color:${h.color}">${fmtEUR(v)}</td>
+      <td class="td-pct">${total>0?((v/total)*100).toFixed(1):0}%</td>`;
+    tb.appendChild(tr);
   });
 }
 
-// ── API Key Gate ───────────────────────────────────────────────────────────
-function initGate() {
-  const saved = localStorage.getItem('wd_apikey');
-  if (saved) { API_KEY = saved; openApp(); return; }
+// ── Donut ──────────────────────────────────────────────────────────────────
+function renderDonut(sources, total) {
+  const svg = document.getElementById('donutSvg');
+  svg.querySelectorAll('.arc').forEach(e=>e.remove());
+  svg.querySelectorAll('text').forEach(e=>e.remove());
+  const r=64,cx=80,cy=80,sw=16,circ=2*Math.PI*r;
 
-  document.getElementById('gateBtn').addEventListener('click', () => {
-    const key = document.getElementById('apiKeyInput').value.trim();
-    if (!key.startsWith('sk-ant-')) {
-      document.getElementById('gateErr').style.display = '';
-      return;
-    }
-    API_KEY = key;
-    localStorage.setItem('wd_apikey', key);
-    openApp();
-  });
-  document.getElementById('apiKeyInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('gateBtn').click();
+  if (total<=0) {
+    const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',cx);t.setAttribute('y',cy);t.setAttribute('text-anchor','middle');
+    t.setAttribute('dy','0.35em');t.setAttribute('fill','#3a4a5c');t.setAttribute('font-size','11');
+    t.setAttribute('font-family','DM Mono,monospace');
+    t.style.transform='rotate(90deg)';t.style.transformOrigin='80px 80px';
+    t.textContent='no data';svg.appendChild(t); return;
+  }
+  const leg = document.getElementById('legend');
+  leg.innerHTML='';
+  const labels={broker:'Broker',crypto:'Crypto',spain:'BBVA ES',mexico:'Banco MX'};
+  let off=0;
+  sources.filter(s=>s.eur>0).forEach(s=>{
+    const d=(s.eur/total)*circ;
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',cx);c.setAttribute('cy',cy);c.setAttribute('r',r);
+    c.setAttribute('fill','none');c.setAttribute('stroke',s.color);c.setAttribute('stroke-width',sw);
+    c.setAttribute('stroke-dasharray',`${d} ${circ-d}`);c.setAttribute('stroke-dashoffset',-off);
+    c.setAttribute('class','arc');c.style.transition='stroke-dasharray 0.6s ease';
+    svg.appendChild(c); off+=d;
+    const row=document.createElement('div');row.className='legend-row';
+    row.innerHTML=`<div class="legend-dot" style="background:${s.color}"></div><span class="legend-label">${labels[s.id]}</span><span class="legend-pct">${((s.eur/total)*100).toFixed(1)}%</span>`;
+    leg.appendChild(row);
   });
 }
 
+// ── Gate & Init ────────────────────────────────────────────────────────────
 function openApp() {
-  document.getElementById('api-gate').style.display = 'none';
-  document.getElementById('app').style.display = '';
+  document.getElementById('api-gate').style.display='none';
+  document.getElementById('app').style.display='';
   load();
-  // Render saved rows
-  renderCard('broker');
-  renderCard('crypto');
-  recalcAll();
-  updateFXBar();
-  fetchRates();
-  // Re-fetch prices for saved tickers
-  [...brokerHoldings, ...cryptoHoldings].filter(h=>h.ticker).forEach(h => {
-    h.status = 'idle';
-    triggerFetch(h);
-  });
-}
-
-// ── Init ───────────────────────────────────────────────────────────────────
-document.getElementById('refreshRatesBtn').addEventListener('click', fetchRates);
-
-// Add initial empty rows if none saved
-function ensureRows() {
   if (!brokerHoldings.length) brokerHoldings.push(makeHolding('broker'));
   if (!cryptoHoldings.length) cryptoHoldings.push(makeHolding('crypto'));
+  renderCard('broker'); renderCard('crypto');
+  recalc();
+  fetchRates().then(() => {
+    recalc();
+    // Refresh all saved tickers
+    [...brokerHoldings,...cryptoHoldings].filter(h=>h.ticker).forEach(h=>{ h.status='idle'; triggerFetch(h); });
+  });
+}
+
+function refreshAll() {
+  fetchRates().then(() => {
+    recalc();
+    [...brokerHoldings,...cryptoHoldings].filter(h=>h.ticker).forEach(h=>{ h.status='idle'; triggerFetch(h); });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  ensureRows();
-  initGate();
+  // Check saved key
+  const saved = localStorage.getItem('wd2_finnhub');
+  if (saved) { FINNHUB_KEY=saved; openApp(); return; }
+
+  document.getElementById('gateBtn').addEventListener('click', () => {
+    const k = document.getElementById('finnhubInput').value.trim();
+    if (k.length < 8) { document.getElementById('gateErr').style.display=''; return; }
+    FINNHUB_KEY=k;
+    localStorage.setItem('wd2_finnhub', k);
+    openApp();
+  });
+  document.getElementById('finnhubInput').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('gateBtn').click(); });
+  document.getElementById('gateSkip').addEventListener('click', () => { FINNHUB_KEY=''; openApp(); });
+  document.getElementById('refreshBtn').addEventListener('click', refreshAll);
 });
 </script>
 </body>
